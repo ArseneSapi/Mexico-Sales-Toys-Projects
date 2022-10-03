@@ -1,6 +1,6 @@
 # Mexico-Sales-Toys-Projects
 # Goal of the project
-## Use SQL language(mysql here)  to analyze data through step by step analysis procedure as below:
+## Use SQL language(mysql here)  to analyze data through step by step analysis and derive insights as below:
 ## Data cleaning
 ## data transformation
 ## Data manipulation,
@@ -14,7 +14,7 @@
 
 # Step 2 :  Data cleaning
 #Check data type and upadte or modify if necessary
-##table sales
+##table sales 
 
 SHOW FIELDS FROM sales 
 
@@ -40,7 +40,7 @@ DESCRIBE products
 
 ## product_cost and product_price should be INT or decimal rather than TEXT
 ## Correction
-## Those two columns content '$' sign, So we need to remove this sign, otherwise conversion into DECIMAL or INT will faill
+## Those two columns content '$' sign, So we need to remove this sign, otherwise conversion into DECIMAL or INT will fail
 ## Remove '$' sign by remplacing it with space
 
 UPDATE  products
@@ -53,10 +53,13 @@ SET Product_Price = REPLACE(Product_Price,'$',' ')
 ALTER TABLE products
 MODIFY Product_Price DECIMAL(10,2)
 
+ALTER TABLE products
+MODIFY Product_Cost DECIMAL(10,2)
+
 ## Test 
 SHOW FIELDS FROM products
 
-## date value (Verify if all data in date field are consistent)
+## Date value (Verify if all data in date field are consistent)
 ## Example of 'Store_Open_Date' column in stores table
 
 SELECT * FROM stores
@@ -81,8 +84,8 @@ FROM sales
 WHERE 
 (Sale_ID || Date || Store_ID || Product_ID || Units ) IS NULL
  
- # Step 3 :  Data exploration
- ## Determine MIN, MAX, Average of product price, product cost, units in stock
+# Step 3 :  Data exploration
+## Determine MINIMUM, MAXIMUM, Average of product price, product cost, units in stock
  
 SELECT 
 MAX(Stock_On_Hand) AS Highest_stock,
@@ -103,7 +106,7 @@ AVG(Product_Cost) AS Average__Product_Cost
 FROM products
 
 ## Determine product category
-## There is only for products categories (5 categories)
+## There is only five products categories.
 
 SELECT 
 DISTINCT Product_Category AS category
