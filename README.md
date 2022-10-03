@@ -1,4 +1,11 @@
 # Mexico-Sales-Toys-Projects
+# Goal of the project
+## Use SQL language(mysql here)  to analyze data through step by step analysis procedure as below:
+## Data cleaning
+## data transformation
+## Data manipulation,
+## Analysis
+## Insights
 
 # Dataset source :  https://app.mavenanalytics.io/datasets?search=mexi
 
