@@ -95,7 +95,7 @@ MIN(Product_Cost) AS lowest_Product_Cost,
 AVG(Product_Cost) AS Average__Product_Cost
 FROM products
 
-## Determine category prodtuct
+## Determine product category
 ## There is only for products categories (5 categories)
 
 SELECT 
