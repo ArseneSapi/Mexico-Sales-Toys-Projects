@@ -106,11 +106,14 @@ AVG(Product_Cost) AS Average__Product_Cost
 FROM products
 
 ## Determine product category
-## There is only five products categories.
+
 
 SELECT 
 DISTINCT Product_Category AS category
 FROM products
+
+## There is only five products categories.
+-- Toys, Arts & Crafts, Games, Electronics, Sports & Outdoors
  
 ## Determine store_location
 ## There is four type stores location (4 stores)
@@ -119,6 +122,10 @@ SELECT
 DISTINCT Store_Location
 FROM stores
 
+#There is four type stores location
+-- Residential, Commercial, Downtown, Airtport
+
+
 # Step 4 :  Analysis
 ## Total sales transactions
 
@@ -126,7 +133,9 @@ SELECT
 COUNT(Sale_ID) AS total_sales_transactions
 FROM sales
 
-## Sales Units per products and the first fifth  products sold
+-- There are 829262 slaes transactions in maven sales toys
+
+## Sales Units per products and the first fifth  units sold
 
 SELECT 
 s.Product_ID AS product_ID,
@@ -136,7 +145,9 @@ FROM sales s
 INNER JOIN products d
 ON s.product_ID = d.product_ID
 GROUP BY 1, 2
-ORDER BY Units_sold DESC  LIMIT 5    
+ORDER BY Units_sold DESC  LIMIT 5 
+
+-- colorbuds is the first product sold in units followed by PlayDoh can, Barrel O' Slime, Deck Of Cards, Magic Sand
 
 ## Revenue per product and the first fifth  revenue
 
@@ -151,6 +162,8 @@ INNER JOIN products d
 ON s.product_ID = d.product_ID
 GROUP BY 1, 2, 3
 ORDER BY revenue_per_product DESC  LIMIT 5  
+
+-- Lego bricks is the first product sold in terms of revenue followed by colorbuds, Magic sand, Action Figure, Rubiks Cube. We can see that because of its unit sale price, lego bricks drive more revenue than Colorbuds which has more units sold
  
 ## Cost per product
 
@@ -164,7 +177,9 @@ FROM sales s
 INNER JOIN products d
 ON s.product_ID = d.product_ID
 GROUP BY 1, 2, 3
-ORDER BY cost_per_product DESC   
+ORDER BY cost_per_product DESC 
+
+-- Lego bricks with its highest unit cost hat the total highest cost in terms of quantity sold
  
 ## Profit and profit percentage per product
 
@@ -183,7 +198,9 @@ INNER JOIN products d
 ON s.product_ID = d.product_ID
 GROUP BY 1, 2, 3, 4
 ORDER BY profit_percentage DESC 
- 
+
+-- With this analysis, product Jenga is the most profitable (70.07% of profitability) product for maven toys. Colorbuds, magic sand and others that drive highest revenue are not as much profitable like Jenga.
+
 ## Total cost, total revenue, total profit and profit percentage 
 ## I use temporary table as follows 
 ## Temporary table for revenue per product
@@ -225,6 +242,8 @@ FROM productRevenue pr
 JOIN productCosts pc
 ON pr.product_ID = pc.product_ID
 
+-- Maven toys generate Total revenue of $14444582.35, Total cost of $ 10430543.35, Total profit of $4014029 and 24.79% of total profitability
+
 ## Total cost, total revenue, total profit and profit percentage per type of location  
 ## Remember there are four types (residential, airport, commercial and downtown)
 ## I use subquery as follows 
@@ -255,8 +274,8 @@ GROUP BY 1, 2, 3, 4, 5
 GROUP BY 1
 ORDER BY profit_percentage DESC  
 
--- Even if revenu is higher in stores located in downtown and commercial, profit 
--- is higher in Airport location. I think that costs in downtown could be analyzed deeply to find what can be changed to improve profit
+-- Even if revenue is higher in stores located in downtown and commercial, profit 
+-- is higher in Airport location. I think that costs in downtown could be analyzed deeply to find what can be changed to improve profit there. There is also an opportunity to find how revenue could improved in stores located in airport
 
 ## Total cost, total revenue, total profit and profit percentage per year and per category of toys 
 ## I use subquery and CASE function as follows
@@ -286,6 +305,8 @@ GROUP BY 1, 2, 3, 4, 5, 6
 ) AS revenue_and_costs
 GROUP BY 1
 
+-- This analysis help us to see how revenue per category is changing year by year. Only Arts & crafts goes up between 2017 and 2018 while other goes down. Deep analysis is necessary to understand why sales of thos categories wend down. Are ther any products within those categories that are responsible for this situation.
+
 ## Total cost, total revenue, total profit and profit percentage per year 
 ## I use subquery as follows
 
@@ -310,6 +331,8 @@ INNER JOIN products d
 ON s.product_ID = d.product_ID
 GROUP BY 1,2,3,4,5 ) AS revenue_and_costs
 GROUP BY 1
+
+-- With this analysis we can see that profit drop down from 2017 to 2018 (29.26% to 26.20%). It confirms what has been observed in precedent analysis.
 
 ## Total cost, total revenue, total profit and profit percentage per year and month
 ## I use subquery as follows
@@ -338,31 +361,39 @@ ON s.product_ID = d.product_ID
 GROUP BY 1,2,3,4,5,6 ) AS revenue_and_costs
 GROUP BY 1,2
 
+-- This is the precedent analysis broke down by month to see how maven toys perfomed mont by month. Company revenu increased mont by month during 2017 with a little drop down during July and August. In 2018, revenue is constant with slightly increase, but ther is a drop down in August and september.
+-- Drop down periods shoul be analyzed to understand what happen durin those periods that can explained the situation et find solution to improve next year. 
+
 ## Cost  Value of inventory
 ## 1- cost per product
 
 SELECT
 i.Product_ID,
+p.Product_Name,
 p.Product_Cost,
 SUM(i.Stock_On_Hand),
 SUM(i.Stock_On_Hand) * p.Product_Cost AS inventory_cost_per_product
 FROM inventory i
 LEFT JOIN products p
 USING(Product_ID)
-GROUP BY 1,2
+GROUP BY 1,2,3
+ORDER BY inventory_cost_per_product DESC
 
 ## 2- total inventory cost
 
 SELECT
 SUM(inventory_cost_per_product) inv_cost
-FROM(
-
-SELECT
+FROM
+(SELECT
 i.Product_ID,
+p.Product_Name,
 p.Product_Cost,
 SUM(i.Stock_On_Hand),
 SUM(i.Stock_On_Hand) * p.Product_Cost AS inventory_cost_per_product
 FROM inventory i
 LEFT JOIN products p
 USING(Product_ID)
-GROUP BY 1,2) AS inv_cost
+GROUP BY 1,2,3
+ORDER BY inventory_cost_per_product DESC) AS inv_cost
+
+-- total inventory costs is $300209.58 mostly drived by lego bricks with its higher unit cost and quantity. monitor these inventory by findind the less sale or less profit product could be a great opportunity to reduce this cost and increase profitability.
