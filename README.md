@@ -44,7 +44,7 @@ modify Date DATE
 ```
    c. table products
 ```sql
-   DESCRIBE products
+    DESCRIBE products
 ```
 -- product_cost and product_price should be INTEGER or Decimal rather than TEXT
 -- Transform columns 'product_price' and product_cost from Text type to Decimal type with following code
