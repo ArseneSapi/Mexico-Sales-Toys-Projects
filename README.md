@@ -15,7 +15,7 @@ blablabla
 # Step 1 Create databse and import data in Mysql
 -- Create database with following command
 ```sql
-CREATE DATABASE mexicoSalestoys
+   CREATE DATABASE mexicoSalestoys
 ```
 -- Import data in mysql (4 csv files) using data table import wizard. There are stores table, inventory table,
 products table, sales table
@@ -24,7 +24,7 @@ products table, sales table
 1. Check if data type in tables are in appropriate format and upadte or modify them if necessary
    a. table sales 
 ```sql
-SHOW FIELDS FROM sales
+   SHOW FIELDS FROM sales
 ```
 -- Column 'Date' shoud be DATE type rather than TEXT
 -- Transform column 'Date' from Text type to Date type with following code
@@ -34,42 +34,42 @@ modify Date DATE
 ```
    b. table stores
 ```sql
-DESCRIBE stores
+   DESCRIBE stores
 ```
 -- Column 'Store_Open_Date' shoud be DATE type rather than TEXT
 -- Transform column 'Store_Open_Date' from Text type to Date type with following code 
 ```sql
-ALTER table stores
-modify Store_Open_Date DATE
+   ALTER table stores
+   modify Store_Open_Date DATE
 ```
    c. table products
 ```sql
-DESCRIBE products
+   DESCRIBE products
 ```
 -- product_cost and product_price should be INTEGER or Decimal rather than TEXT
 -- Transform columns 'product_price' and product_cost from Text type to Decimal type with following code
 -- Those two columns content '$' sign, So we need to remove this sign, otherwise conversion into DECIMAL or INT will fail
 -- Remove '$' sign by remplacing it with space as follow
 ```sql
-UPDATE  products
-SET Product_Cost = REPLACE(Product_Cost,'$',' ')
+   UPDATE  products
+   SET Product_Cost = REPLACE(Product_Cost,'$',' ')
 ```
 ```sql
-UPDATE  products
-SET Product_Price = REPLACE(Product_Price,'$',' ')
+   UPDATE  products
+   SET Product_Price = REPLACE(Product_Price,'$',' ')
 ```
 -- No need to care about space; conversion into decimal will remove any space
 ```sql
-ALTER TABLE products
-MODIFY Product_Price DECIMAL(10,2)
+   ALTER TABLE products
+   MODIFY Product_Price DECIMAL(10,2)
 ```
 ```sql
-ALTER TABLE products
-MODIFY Product_Cost DECIMAL(10,2)
+   ALTER TABLE products
+   MODIFY Product_Cost DECIMAL(10,2)
 ```
 -- verify data type into table products
 ```sql
-SHOW FIELDS FROM products
+   SHOW FIELDS FROM products
 ```
 2. Date value. Here we need to verify if all data in date field are consistent.
 ## Example of 'Store_Open_Date' column in stores table
