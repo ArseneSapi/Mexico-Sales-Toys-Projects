@@ -12,50 +12,44 @@ blablabla
 ## Insights
 
 # Dataset source :  https://app.mavenanalytics.io/datasets?search=mexi
-# Create databse in Mysql
-# Step 1  : Import data in mysql (4 csv files) using data table import wizard
+# Step 1 Create databse and import data in Mysql
+-- Create database with following command
+```sql
+CREATE DATABASE mexicoSalestoys
+```
+-- Import data in mysql (4 csv files) using data table import wizard. There are stores table, inventory table,
+products table, sales table
 
-# Step 2 :  Data cleaning
-#Check data type and upadte or modify if necessary
-##table sales 
+# Step 2 :  Data cleaning and transformation
+1. Check if data type in tables are in appropriate format and upadte or modify them if necessary
+   a. table sales 
 ```sql
 `SHOW FIELDS FROM sales`
 ```
-
-```sql
--- my comment
-select * from table
-```
-
-## Column 'Date' shoud be DATE type rather than TEXT
-
-## Correction 
+-- Column 'Date' shoud be DATE type rather than TEXT
+-- Transform column 'Date' from Text type to Date type with following code
 ```sql
 ALTER table sales
 modify Date DATE
 ```
-
-## table stores
+   b. table stores
 ```sql
 DESCRIBE stores
 ```
-
-## Column 'Store_Open_Date' shoud be DATE type rather than TEXT
-## Correction  
+-- Column 'Store_Open_Date' shoud be DATE type rather than TEXT
+-- Transform column 'Store_Open_Date' from Text type to Date type with following code 
 ```sql
 ALTER table stores
 modify Store_Open_Date DATE
 ```
-
-## table products
+   c. table products
 ```sql
 DESCRIBE products
 ```
-
-## product_cost and product_price should be INT or decimal rather than TEXT
-## Correction
-## Those two columns content '$' sign, So we need to remove this sign, otherwise conversion into DECIMAL or INT will fail
-## Remove '$' sign by remplacing it with space
+-- product_cost and product_price should be INTEGER or Decimal rather than TEXT
+-- Transform columns 'product_price' and product_cost from Text type to Decimal type with following code
+-- Those two columns content '$' sign, So we need to remove this sign, otherwise conversion into DECIMAL or INT will fail
+-- Remove '$' sign by remplacing it with space as follow
 ```sql
 UPDATE  products
 SET Product_Cost = REPLACE(Product_Cost,'$',' ')
@@ -64,7 +58,7 @@ SET Product_Cost = REPLACE(Product_Cost,'$',' ')
 UPDATE  products
 SET Product_Price = REPLACE(Product_Price,'$',' ')
 ```
-## No need to care about space; conversion into decimal will remove any space
+-- No need to care about space; conversion into decimal will remove any space
 ```sql
 ALTER TABLE products
 MODIFY Product_Price DECIMAL(10,2)
@@ -73,12 +67,11 @@ MODIFY Product_Price DECIMAL(10,2)
 ALTER TABLE products
 MODIFY Product_Cost DECIMAL(10,2)
 ```
-
-## Test
+-- verify data type into table products
 ```sql
 SHOW FIELDS FROM products
 ```
-## Date value (Verify if all data in date field are consistent)
+2. Date value. Here we need to verify if all data in date field are consistent.
 ## Example of 'Store_Open_Date' column in stores table
 ```sql
 SELECT 
