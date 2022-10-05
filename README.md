@@ -83,8 +83,8 @@ WHERE Store_Open_Date <> DATE(STR_TO_DATE('Store_Open_Date', '%Y-%m-%d'))
 ## Example  Column product_ID in products tables
 ```sql
 SELECT 
-product_ID,
-COUNT(product_ID) AS ID_appearance
+      product_ID,
+      COUNT(product_ID) AS ID_appearance
 FROM products
 GROUP BY 1
 HAVING ID_appearance > 1
