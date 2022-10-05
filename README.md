@@ -24,7 +24,7 @@ products table, sales table
 1. Check if data type in tables are in appropriate format and upadte or modify them if necessary
    a. table sales 
 ```sql
-`SHOW FIELDS FROM sales`
+SHOW FIELDS FROM sales
 ```
 -- Column 'Date' shoud be DATE type rather than TEXT
 -- Transform column 'Date' from Text type to Date type with following code
