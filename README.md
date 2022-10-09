@@ -1,8 +1,5 @@
 # Mexico-Sales-Toys-Projects. 
-- blablabla
-- test
-   - test2
-   -- 
+
 # Goal of the project
 ## Use SQL language(mysql here)  to analyze data through step by step analysis and derive insights as below:
 ## Data cleaning
