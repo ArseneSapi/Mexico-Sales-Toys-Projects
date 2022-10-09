@@ -442,6 +442,7 @@ FROM
 ```
 12. Recomendations
 
+
    1. With this analysis, product Jenga is the most profitable (70.07% of profitability) product for maven toys. Colorbuds, magic sand and others that drive highest revenue but are not as much profitable like Jenga. 
 - Action should be taken to ensure that jenga will not run out of stock
 - Another action should be taken to revise cost chain of the most sold products like colorbuds or magic sand in order to increase their profitability
