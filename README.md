@@ -10,15 +10,15 @@
 
 # Dataset source :  https://app.mavenanalytics.io/datasets?search=mexi
 # Step 1 Create databse and import data in Mysql
--- Create database with following query
+- First create database with following query
 ```sql
    CREATE DATABASE mexicoSalestoys
 ```
--- Import data in mysql (4 csv files) using data table import wizard. There are stores table, inventory table,
+- And then import data in mysql (4 csv files) using data table import wizard. There are stores table, inventory table,
 products table, sales table
 
 # Step 2 :  Data cleaning and transformation
-1. Check if data type in tables are in appropriate format and upadte or modify them if necessary
+1. Check if data type in tables are in appropriate format and update or modify them if necessary
 
 `a. table sales`
       
