@@ -1,5 +1,5 @@
 # Mexico-Sales-Toys-Projects. 
-blablabla
+- blablabla
 - test
    - test2
    -- 
@@ -13,7 +13,7 @@ blablabla
 
 # Dataset source :  https://app.mavenanalytics.io/datasets?search=mexi
 # Step 1 Create databse and import data in Mysql
--- Create database with following command
+-- Create database with following query
 ```sql
    CREATE DATABASE mexicoSalestoys
 ```
@@ -22,34 +22,35 @@ products table, sales table
 
 # Step 2 :  Data cleaning and transformation
 1. Check if data type in tables are in appropriate format and upadte or modify them if necessary
-   a. table sales 
+
+`a. table sales`
+      
 ```sql
    SHOW FIELDS FROM sales
 ```
--- Column 'Date' shoud be DATE type rather than TEXT
--- Transform column 'Date' from Text type to Date type with following code
+Result shows that Column 'Date' shoud be DATE type rather than TEXT. 
+-  To correct it, column 'Date' should be transformed from Text type to Date type with following query :
 ```sql
-ALTER table sales
-modify Date DATE
+   ALTER table sales
+   modify Date DATE
 ```
-   b. table stores
+`b. table stores`
 ```sql
-   DESCRIBE stores
+     DESCRIBE stores
 ```
--- Column 'Store_Open_Date' shoud be DATE type rather than TEXT
--- Transform column 'Store_Open_Date' from Text type to Date type with following code 
+Result shows that Column 'Store_Open_Date' shoud be DATE type rather than TEXT type. 
+-  To correct it, 'Store_Open_Date' should be transformed from Text type to Date type with following query :
 ```sql
    ALTER table stores
    modify Store_Open_Date DATE
 ```
-   c. table products
+`c. table products`
 ```sql
-    DESCRIBE products
+   DESCRIBE products
 ```
--- product_cost and product_price should be INTEGER or Decimal rather than TEXT
--- Transform columns 'product_price' and product_cost from Text type to Decimal type with following code
--- Those two columns content '$' sign, So we need to remove this sign, otherwise conversion into DECIMAL or INT will fail
--- Remove '$' sign by remplacing it with space as follow
+Product_cost and product_price columns should be INTEGER type or Decimal rather than TEXT. 
+-  To correct it, those columns should be transformed from Text type to Decimal type. But they content '$' sign, So we need first to remove this sign, otherwise conversion into DECIMAL or INT will fail
+-  Remove '$' sign by remplacing it with space with the following query
 ```sql
    UPDATE  products
    SET Product_Cost = REPLACE(Product_Cost,'$',' ')
@@ -58,7 +59,7 @@ modify Date DATE
    UPDATE  products
    SET Product_Price = REPLACE(Product_Price,'$',' ')
 ```
--- No need to care about space; conversion into decimal will remove any space
+-  And then proceed to conversion into decimal using following query 
 ```sql
    ALTER TABLE products
    MODIFY Product_Price DECIMAL(10,2)
@@ -67,20 +68,20 @@ modify Date DATE
    ALTER TABLE products
    MODIFY Product_Cost DECIMAL(10,2)
 ```
--- verify data type into table products
+-  Verify data type into table products
 ```sql
    SHOW FIELDS FROM products
 ```
-2. Date value. Here we need to verify if all data in date field are consistent.
-## Example of 'Store_Open_Date' column in stores table
+2. Verify if all data in date field are consistent.  
+-  Example of 'Store_Open_Date' column in stores table : Check if all data are in 'Year-month-day' to be sure that mysql will perform any task on date field. The following query will help to check.
 ```sql
 SELECT 
    * 
 FROM stores
 WHERE Store_Open_Date <> DATE(STR_TO_DATE('Store_Open_Date', '%Y-%m-%d'))
 ```
-## Duplicates records (Verify if data recorded is unique)
-## Example  Column product_ID in products tables
+3. Duplicates records : Verify if data recorded is unique
+-  The following query will help to know if data(column product_id) in products tables are unique :
 ```sql
 SELECT 
       product_ID,
@@ -89,8 +90,8 @@ FROM products
 GROUP BY 1
 HAVING ID_appearance > 1
 ```
-## Empty Values (Verify if there is record with empty value in any column)
-## Example of sales table
+4. Empty Values : Verify if there is record with empty value in any column and decide how to deal with
+-  The following query will help to identify any empty values(in any column) in sales table
 ```sql
 SELECT 
    * 
@@ -99,7 +100,8 @@ WHERE
 (Sale_ID || Date || Store_ID || Product_ID || Units ) IS NULL
  ```
 # Step 3 :  Data exploration
-## Determine MINIMUM, MAXIMUM, Average of product price, product cost, units in stock
+1. Find the MINIMUM, MAXIMUM, Average of product price, product cost, units in stock 
+-  Following code for Units in stock
 ```sql 
 SELECT 
      MAX(Stock_On_Hand) AS Highest_stock,
@@ -107,6 +109,7 @@ SELECT
      AVG(Stock_On_Hand) AS Average_stock
 FROM inventory
 ```
+-  Following query for product price
 ```sql
 SELECT 
      MAX(Product_Price) AS Highest_sale_price,
@@ -114,6 +117,7 @@ SELECT
      AVG(Product_Price) AS Average__sale_price
 FROM products
 ```
+-  Following query for product cost
 ```sql
 SELECT 
      MAX(Product_Cost) AS Highest_Product_Cost,
@@ -121,36 +125,37 @@ SELECT
      AVG(Product_Cost) AS Average__Product_Cost
 FROM products
 ```
-## Determine product category
+2. Know the product category of toys sold 
+-  The following query will help to identify product category from products table
 ```sql
 SELECT 
 DISTINCT Product_Category AS category
 FROM products
 
--- There are only five products categories.
+-- There are only five products categories as follows ;  
 -- Toys, Arts & Crafts, Games, Electronics, Sports & Outdoors
 ```
-## Determine store_location
-## There is four type stores location (4 stores)
+3. Know the type of store location used by mexico toys company
+The following query will help to identify type of store location from stores table
 ```sql 
 SELECT 
      DISTINCT Store_Location
 FROM stores
 
---There are four type stores location
+-- There are four type stores location AS follows : 
 -- Residential, Commercial, Downtown, Airtport
 ```
 
 # Step 4 :  Analysis
-## Total sales transactions
+1. Find how many sales transactions are made by mexico toys during the period
 ```sql
 SELECT 
      COUNT(Sale_ID) AS total_sales_transactions
 FROM sales
 
--- There are 829262 slaes transactions in maven sales toys
+-- There are 829262 sales transactions done by maven sales toys
 ```
-## Sales Units per products and the first fifth  units sold
+2. Find how many Sales Units per products have been made and higlight the first fifth products
 ```sql
 SELECT 
      s.Product_ID AS product_ID,
@@ -162,9 +167,9 @@ FROM sales s
 GROUP BY 1, 2
 ORDER BY Units_sold DESC  LIMIT 5 
 
--- colorbuds is the first product sold in units followed by PlayDoh can, Barrel O' Slime, Deck Of Cards, Magic Sand
+-- Colorbuds is the first product sold in units(104368 units) followed by PlayDoh can(103128 units), Barrel O' Slime(91663 units), Deck Of Cards(84034 units) and Magic Sand(60598 units)
 ```
-## Revenue per product and the first fifth  revenue
+3. Find how much Revenue per product have been made and the the first fifth revenue
 ```sql
 SELECT 
      s.Product_ID AS product_ID,
@@ -178,9 +183,10 @@ FROM sales s
 GROUP BY 1, 2, 3
 ORDER BY revenue_per_product DESC  LIMIT 5  
 
--- Lego bricks is the first product sold in terms of revenue followed by colorbuds, Magic sand, Action Figure, Rubiks Cube. We can see that because of its unit sale price, lego bricks drive more revenue than Colorbuds which has more units sold
+-- Lego bricks is the first product sold in terms of revenue($2,388,882.63 followed by colorbuds, Magic sand, Action Figure, Rubiks Cube. We can see that because of its unit sale price, lego bricks drive more revenue than Colorbuds which has more units sold
 ```
-## Cost per product
+4. Find how much money mexico Toys spent on product sold
+-  The following query helps to determine Cost per product for units sold
 ```sql
 SELECT 
      s.Product_ID AS product_ID,
@@ -194,10 +200,11 @@ FROM sales s
 GROUP BY 1, 2, 3
 ORDER BY cost_per_product DESC 
 
--- Lego bricks with its highest unit cost hat the total highest cost in terms of quantity sold
+-- Lego bricks with its highest unit cost has the total highest cost($2,090,197.63) in terms of quantity sold
 ```
  
-## Profit and profit percentage per product
+5. Determine how product perform each other by calculating Profit and profit percentage per product
+-  -  The following query helps to determine profit percentage per product
 ```sql
 SELECT 
      s.Product_ID AS product_ID,
@@ -215,11 +222,11 @@ FROM sales s
 GROUP BY 1, 2, 3, 4
 ORDER BY profit_percentage DESC 
 
--- With this analysis, product Jenga is the most profitable (70.07% of profitability) product for maven toys. Colorbuds, magic sand and others that drive highest revenue are not as much profitable like Jenga.
+-- With this analysis, product Jenga is the most profitable (70.07% of profitability) product for maven toys. Colorbuds, magic sand and others that drive highest revenue but are not as much profitable like Jenga.
 ```
-## Total cost, total revenue, total profit and profit percentage 
-## I use temporary table as follows 
-## Temporary table for revenue per product
+6. It is also important to have the overall cost, revenue, profit and profit percentage made by mexico toys
+- Using temporary table is the method I use to make calculations
+-  a. create a temporary table for revenue per product with the following query
 ```sql
 CREATE TEMPORARY TABLE productRevenue
 SELECT 
@@ -234,7 +241,7 @@ FROM sales s
 GROUP BY 1, 2, 3
 ```
 
-## Temporary table for cost per product
+-  b. Create another Temporary table for cost per product with the following query
 ```sql
 CREATE TEMPORARY TABLE productCosts
 SELECT 
@@ -249,7 +256,7 @@ FROM sales s
 GROUP BY 1, 2, 3
 ```
 
-## THEN determine total profit and profit percentage by joining the two temporary tables and grouping revenue and costs
+-  THEN determine total profit and profit percentage by joining the two temporary tables and grouping revenue and costs
 ```sql
 SELECT
      SUM(pr.revenue_per_product) AS total_revenue,
@@ -263,9 +270,9 @@ FROM productRevenue pr
 -- Maven toys generate Total revenue of $14444582.35, Total cost of $ 10430543.35, Total profit of $4014029 and 24.79% of total profitability
 ```
 
-## Total cost, total revenue, total profit and profit percentage per type of location  
-## Remember there are four types (residential, airport, commercial and downtown)
-## I use subquery as follows 
+7. Determine Total cost, total revenue, total profit and profit percentage per type of location to see what impact sore location has on mexoco toys strategy.
+Remember there are four types of store location (residential, airport, commercial and downtown)
+-  Use subquery as follows 
 ```sql
 SELECT 
     Store_Location,
@@ -293,12 +300,11 @@ FROM
 GROUP BY 1
 ORDER BY profit_percentage DESC  
 
--- Even if revenue is higher in stores located in downtown and commercial, profit 
--- is higher in Airport location. I think that costs in downtown could be analyzed deeply to find what can be changed to improve profit there. There is also an opportunity to find how revenue could improved in stores located in airport
+-- Even if revenue is higher in stores located in downtown and commercial, profit is higher in Airport location. I think that costs in downtown could be analyzed deeply to find what can be changed to improve profit there. There is also an opportunity to find how revenue could improved in stores located in airport
 ```
 
-## Total cost, total revenue, total profit and profit percentage per year and per category of toys 
-## I use subquery and CASE function as follows
+8. Determine Total cost, total revenue, total profit and profit percentage per year and per category of toys 
+- Use subquery and CASE function as follows
 ```sql
 SELECT 
      year,
@@ -325,11 +331,11 @@ FROM
      ) AS revenue_and_costs
 GROUP BY 1
 
--- This analysis help us to see how revenue per category is changing year by year. Only Arts & crafts goes up between 2017 and 2018 while other goes down. Deep analysis is necessary to understand why sales of thos categories wend down. Are ther any products within those categories that are responsible for this situation.
+-- This analysis help us to see how revenue per category is changing year by year. Only Arts & crafts goes up between 2017 and 2018 while other goes down. Deep analysis is necessary to understand why sales of those categories dropped down. Are there any products within those categories that are responsible for this situation?
 ```
 
-## Total cost, total revenue, total profit and profit percentage per year 
-## I use subquery as follows
+9. Determine Total cost, total revenue, total profit and profit percentage per year 
+- Use subquery as follows
 ```sql
 SELECT
      year,
@@ -352,12 +358,13 @@ FROM
     GROUP BY 1,2,3,4,5 
     ) AS revenue_and_costs
 GROUP BY 1
+
+
+-- With this analysis we can see that even profit percentage seems to be stable from 2017 to 2018 (29.26% to 26.20%), It appears thaht revenu went down from 2017 to 2018 ($7,482,498.08 to $6,962,074.27); thios confirms what has been observed in precedent analysis.
 ```
 
--- With this analysis we can see that profit drop down from 2017 to 2018 (29.26% to 26.20%). It confirms what has been observed in precedent analysis.
-
-## Total cost, total revenue, total profit and profit percentage per year and month
-## I use subquery as follows
+10. Determine Total cost, total revenue, total profit and profit percentage per year and month
+- Use subquery as follows
 ```sql
 SELECT
      year,
@@ -384,12 +391,12 @@ FROM
      ) AS revenue_and_costs
 GROUP BY 1,2
 
--- This is the precedent analysis broke down by month to see how maven toys perfomed mont by month. Company revenu increased mont by month during 2017 with a little drop down during July and August. In 2018, revenue is constant with slightly increase, but ther is a drop down in August and september.
--- Drop down periods shoul be analyzed to understand what happen durin those periods that can explained the situation et find solution to improve next year. 
+-- This is the precedent analysis broke down by month to see how maven toys perfomed month by month. Company revenue increased mont by month during 2017 with a little drop down during July and August. In 2018, revenue is constant with slightly increase, but ther is a drop down in August and september.
+-- Drop down periods should be analyzed to understand what happen during those periods that can explain the situation and find solution to improve next year. 
 ```
 
-## Cost  Value of inventory
-## 1- cost per product
+11. It is also important to know the volume and value of our inventory 
+- The following code will help to evaluate these metrics
 ```sql
 SELECT
      i.Product_ID,
@@ -404,7 +411,7 @@ GROUP BY 1,2,3
 ORDER BY inventory_cost_per_product DESC
 ```
 
-## 2- total inventory cost
+- Total inventory cost
 ```sql
 SELECT
      SUM(inventory_cost_per_product) inv_cost
@@ -422,5 +429,6 @@ FROM
      ORDER BY inventory_cost_per_product DESC
      ) AS inv_cost
 
--- total inventory costs is $300209.58 mostly drived by lego bricks with its higher unit cost and quantity. monitor these inventory by findind the less sale or less profit product could be a great opportunity to reduce this cost and increase profitability.
+-- Total inventory costs is $300,209.58 mostly drived by lego bricks with its higher unit cost and volume. Monitor these inventory by findind the less sale or less profit product could be a great opportunity to reduce this cost and also increase profitability.
 ```
+12. Recomendations
