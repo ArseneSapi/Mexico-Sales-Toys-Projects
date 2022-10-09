@@ -18,6 +18,7 @@ In order to achieve this task, I choose to use Mysql database system to pull and
 4. Proceed with Data manipulation if necessary
 5. Proceed with Analysis to understand what happen in mexico sales business
 6. Recommendations
+
 Of course mexico toys company is a fictitious company and datas are provides by maven Analytics. The data source is below https://app.mavenanalytics.io/datasets?search=mexi
 
 # Step 1 Create databse and import data in Mysql
@@ -445,14 +446,19 @@ FROM
 - Action should be taken to ensure that jenga will not run out of stock
 - Another action should be taken to revise cost chain of the most sold products like colorbuds or magic sand in order to increase their profitability
 
+
    2. Maven toys generate Total revenue of $14444582.35, Total cost of $ 10430543.35, Total profit of $4014029 and 24.79% of total profitability. Even if revenue is higher in stores located in downtown and commercial, profit is higher in Airport location.
 - Costs in downtown location could be analyzed deeply to find what can be changed to improve profit there. There is also an opportunity to find how revenue could be improved in stores located in airport by increasing sales volumes there.
+
 
    3. This analysis help us to see how revenue per category is changing year by year. Only Arts & crafts goes up between 2017 and 2018 while other goes down. 
    Deep analysis is necessary to understand why sales of those categories dropped down. 
 -     Are there any products within those categories that are responsible for this situation?
 
+
    4. Analysis broke down by month reveals how maven toys perfomed month by month. Company revenue increased mont by month during 2017 with a little drop down during July and August. In 2018, revenue is constant with slightly increase, but there is a drop down in August and september.
 - Drop down periods (is there any particular event?) should be analyzed to understand what happen during those periods that can explain the situation and find solution to improve next 
+
+
    5. Total inventory costs is $300,209.58 mostly drived by lego bricks with its higher unit cost and volume. 
 - Monitor these inventory by findind the less sale or less profit product could be a great opportunity to reduce this cost and also increase profitability.
