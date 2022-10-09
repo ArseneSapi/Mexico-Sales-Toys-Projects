@@ -11,7 +11,7 @@ They are interested on several analysis as follows :
 -  Overall revenue, cost, profit and profit percentage split in years and months
 -  Current inventory volume and value 
 As data analyst, I have to povide the metrics that could measure those elements and provide best answers to mexico owners requests.
-In order to achieve this task, I choose to use Mysql database system to pull and analyze data provided by Mexico toys. To do thaht,I will follow the process as presented below. 
+In order to achieve this task, I choose to use Mysql database system to pull and analyze data provided by Mexico toys. To do that,I will follow the process as presented below. 
 1. Use mysql to create Mexico toys database and import csv files provided by the company
 2. Proceed with data cleaning to ensure that data are safe from errors incorrects informations
 3. Proceed with data transformation if necessary
