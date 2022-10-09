@@ -1,14 +1,26 @@
-# Mexico-Sales-Toys-Projects. 
+# Mexico-Sales-Toys-Project. 
 
 # Goal of the project
-## Use SQL language(mysql here)  to analyze data through step by step analysis and derive insights as below:
-## Data cleaning
-## data transformation
-## Data manipulation,
-## Analysis
-## Insights
+Mexico toys is the company which started sales toys business for about two years. Their owner want to know how company performs within this period in order to correct or adapt their strategy for the future.
+They are interested on several analysis as follows :
+-  Toys sales in terms of units sold and revenue per product, and also which product performs best
+-  Revenue, cost and profit per product and also which product performs best
+-  Revenue, cost and profit per store location(store location is a main part of mexico toys commercial strategy)
+-  Revenue, cost and profit per toys category
+-  Overall revenue, cost, profit and profit percentage
+-  Overall revenue, cost, profit and profit percentage split in years and months
+-  Current inventory volume and value 
+As data analyst, I have to povide the metrics that could measure those elements and provide best answers to mexico owners requests.
+In order to achieve this task, I choose to use Mysql database system to pull and analyze data provided by Mexico toys. To do thaht I will the process 
+as presented below. 
+1. Use mysql to create Mexico toys database and import csv files provided by the company
+2. Proceed with data cleaning to ensure that data are safe from errors incorrects informations
+3. Proceed with data transformation if necessary
+4. Proceed with Data manipulation if necessary
+5. Proceed with Analysis to understand what happen in mexico sales business
+6. Recommendations
+Of course mexico toys company is a fictitious company and datas are provides by maven Analytics. The data source is below https://app.mavenanalytics.io/datasets?search=mexi
 
-# Dataset source :  https://app.mavenanalytics.io/datasets?search=mexi
 # Step 1 Create databse and import data in Mysql
 - First create database with following query
 ```sql
