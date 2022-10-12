@@ -167,29 +167,29 @@ FROM sales
 2. Find how many Sales Units per products have been made and higlight the first fifth products
 ```sql
 SELECT 
-     s.Product_ID AS product_ID,
-     d.Product_Name AS name,
-     SUM(s.units) AS Units_sold
-FROM sales s
-     INNER JOIN products d
-     ON s.product_ID = d.product_ID
-GROUP BY 1, 2
+     sales.Product_ID AS product_ID,
+     products.Product_Name AS name,
+     SUM(sales.units) AS Units_sold
+FROM sales 
+     INNER JOIN products 
+     ON sales.product_ID = products.product_ID
+GROUP BY sales.Product_ID, products.Product_Name
 ORDER BY Units_sold DESC  LIMIT 5 
 
 -- Colorbuds is the first product sold in units(104368 units) followed by PlayDoh can(103128 units), Barrel O' Slime(91663 units), Deck Of Cards(84034 units) and Magic Sand(60598 units)
 ```
 3. Find how much Revenue per product have been made and the the first fifth revenue
-```sql
+```sql-
 SELECT 
-     s.Product_ID AS product_ID,
-     d.Product_Name AS name,
-     d.Product_Price,
-     SUM(s.units) AS Units_sold,
-     d.Product_Price * SUM(s.units) AS revenue_per_product
-FROM sales s
-     INNER JOIN products d
-     ON s.product_ID = d.product_ID
-GROUP BY 1, 2, 3
+     sales.Product_ID AS product_ID,
+     products.Product_Name AS name,
+     products.Product_Price,
+     SUM(sales.units) AS Units_sold,
+     products.Product_Price * SUM(sales.units) AS revenue_per_product
+FROM sales 
+     INNER JOIN products 
+     ON sales.product_ID = products.product_ID
+GROUP BY sales.Product_ID, products.Product_Name, products.Product_Price
 ORDER BY revenue_per_product DESC  LIMIT 5  
 
 -- Lego bricks is the first product sold in terms of revenue($2,388,882.63 followed by colorbuds, Magic sand, Action Figure, Rubiks Cube. We can see that because of its unit sale price, lego bricks drive more revenue than Colorbuds which has more units sold
@@ -198,15 +198,15 @@ ORDER BY revenue_per_product DESC  LIMIT 5
 -  The following query helps to determine Cost per product for units sold
 ```sql
 SELECT 
-     s.Product_ID AS product_ID,
-     d.Product_Name AS name,
-     d.Product_Cost,
-     SUM(s.units) AS Units_sold,
-     d.Product_Cost * SUM(s.units) AS cost_per_product
-FROM sales s
-     INNER JOIN products d
-     ON s.product_ID = d.product_ID
-GROUP BY 1, 2, 3
+     sales.Product_ID AS product_ID,
+     products.Product_Name AS name,
+     products.Product_Cost,
+     SUM(sales.units) AS Units_sold,
+     products.Product_Cost * SUM(sales.units) AS cost_per_product
+FROM sales 
+     INNER JOIN products 
+     ON sales.product_ID = products.product_ID
+GROUP BY sales.Product_ID, products.Product_Name, products.Product_Cost
 ORDER BY cost_per_product DESC 
 
 -- Lego bricks with its highest unit cost has the total highest cost($2,090,197.63) in terms of quantity sold
