@@ -96,7 +96,7 @@ SELECT
       product_ID,
       COUNT(product_ID) AS ID_appearance
 FROM products
-GROUP BY 1
+GROUP BY product_ID
 HAVING ID_appearance > 1
 ```
 4. Empty Values : Verify if there is record with empty value in any column and decide how to deal with
@@ -216,19 +216,19 @@ ORDER BY cost_per_product DESC
 -  -  The following query helps to determine profit percentage per product
 ```sql
 SELECT 
-     s.Product_ID AS product_ID,
-     d.Product_Name AS name,
-     d.Product_Cost,
-     d.product_price,
-     SUM(s.units) AS Units_sold,
-     SUM(s.units) * d.Product_Cost AS cost_per_product,
-     d.Product_Price * SUM(s.units) AS revenue_per_product,
-     d.Product_Price * SUM(s.units) - d.Product_Cost * SUM(s.units) AS profit,
-     ROUND(((d.Product_Price * SUM(s.units) - d.Product_Cost * SUM(s.units)) / (d.Product_Price * SUM(s.units))) * 100, 2) AS profit_percentage
-FROM sales s
-     INNER JOIN products d
-     ON s.product_ID = d.product_ID
-GROUP BY 1, 2, 3, 4
+     sales.Product_ID AS product_ID,
+     products.Product_Name AS name,
+     products.Product_Cost,
+     products.product_price,
+     SUM(sales.units) AS Units_sold,
+     SUM(sales.units) * products.Product_Cost AS cost_per_product,
+     products.Product_Price * SUM(sales.units) AS revenue_per_product,
+     products.Product_Price * SUM(sales.units) - products.Product_Cost * SUM(sales.units) AS profit,
+     ROUND(((products.Product_Price * SUM(sales.units) - products.Product_Cost * SUM(sales.units)) / (products.Product_Price * SUM(sales.units))) * 100, 2) AS profit_percentage
+FROM sales 
+     INNER JOIN products 
+     ON sales.product_ID = products.product_ID
+GROUP BY sales.Product_ID, products.Product_Name, products.Product_Cost, products.product_price
 ORDER BY profit_percentage DESC 
 
 -- With this analysis, product Jenga is the most profitable (70.07% of profitability) product for maven toys. Colorbuds, magic sand and others that drive highest revenue but are not as much profitable like Jenga.
@@ -239,30 +239,30 @@ ORDER BY profit_percentage DESC
 ```sql
 CREATE TEMPORARY TABLE productRevenue
 SELECT 
-     s.Product_ID AS product_ID,
-     d.Product_Name AS name,
-     d.Product_Price,
-     SUM(s.units) AS Units_sold,
-     d.Product_Price * SUM(s.units) AS revenue_per_product
-FROM sales s
-     INNER JOIN products d
-     ON s.product_ID = d.product_ID
-GROUP BY 1, 2, 3
+     sales.Product_ID AS product_ID,
+     products.Product_Name AS name,
+     products.Product_Price,
+     SUM(sales.units) AS Units_sold,
+     products.Product_Price * SUM(sales.units) AS revenue_per_product
+FROM sales 
+     INNER JOIN products 
+     ON sales.product_ID = d.product_ID
+GROUP BY sales.Product_ID, products.Product_Name, products.Product_Price
 ```
 
 -  b. Create another Temporary table for cost per product with the following query
 ```sql
 CREATE TEMPORARY TABLE productCosts
 SELECT 
-     s.Product_ID AS product_ID,
-     d.Product_Name AS name,
-     d.Product_Cost,
-     SUM(s.units) AS Units_sold,
-     d.Product_Cost * SUM(s.units) AS cost_per_product
-FROM sales s
-     INNER JOIN products d
-     ON s.product_ID = d.product_ID
-GROUP BY 1, 2, 3
+     sales.Product_ID AS product_ID,
+     products.Product_Name AS name,
+     products.Product_Cost,
+     SUM(sales.units) AS Units_sold,
+     products.Product_Cost * SUM(sales.units) AS cost_per_product
+FROM sales 
+     INNER JOIN products 
+     ON sales.product_ID = products.product_ID
+GROUP BY sales.Product_ID, products.Product_Name, products.Product_Cost
 ```
 
 -  THEN determine total profit and profit percentage by joining the two temporary tables and grouping revenue and costs
@@ -304,9 +304,9 @@ FROM
          ON s.product_ID = d.product_ID
          INNER JOIN stores st
          ON st.Store_ID = s.Store_ID
-    GROUP BY 1, 2, 3, 4, 5
+    GROUP BY st.Store_Location, s.Product_ID, d.Product_Name, d.Product_Price, d.Product_Cost
     ) AS revenue_and_costs
-GROUP BY 1
+GROUP BY Store_Location
 ORDER BY profit_percentage DESC  
 
 -- Even if revenue is higher in stores located in downtown and commercial, profit is higher in Airport location. I think that costs in downtown could be analyzed deeply to find what can be changed to improve profit there. There is also an opportunity to find how revenue could improved in stores located in airport
@@ -336,9 +336,9 @@ FROM
      FROM sales s
           INNER JOIN products d
           ON s.product_ID = d.product_ID
-     GROUP BY 1, 2, 3, 4, 5, 6
+     GROUP BY Year(s.Date), d.Product_Category, s.Product_ID, d.Product_Name, d.Product_Price, d.Product_Cost
      ) AS revenue_and_costs
-GROUP BY 1
+GROUP BY year
 
 -- This analysis help us to see how revenue per category is changing year by year. Only Arts & crafts goes up between 2017 and 2018 while other goes down. Deep analysis is necessary to understand why sales of those categories dropped down. Are there any products within those categories that are responsible for this situation?
 ```
@@ -364,9 +364,9 @@ FROM
         SUM(s.units) * d.Product_Cost  AS cost_per_product
     FROM sales s 
          INNER JOIN products d ON s.product_ID = d.product_ID
-    GROUP BY 1,2,3,4,5 
+    GROUP BY YEAR(s.Date), s.Product_ID, d.Product_Name, d.Product_Price, d.Product_Cost 
     ) AS revenue_and_costs
-GROUP BY 1
+GROUP BY year
 
 
 -- With this analysis we can see that even profit percentage seems to be stable from 2017 to 2018 (29.26% to 26.20%), It appears thaht revenu went down from 2017 to 2018 ($7,482,498.08 to $6,962,074.27); thios confirms what has been observed in precedent analysis.
@@ -396,9 +396,9 @@ FROM
      FROM sales s
           INNER JOIN products d
           ON s.product_ID = d.product_ID
-     GROUP BY 1,2,3,4,5,6
+     GROUP BY YEAR(s.Date), MONTH(s.date), s.Product_ID, d.Product_Name, d.Product_Price, d.Product_Cost
      ) AS revenue_and_costs
-GROUP BY 1,2
+GROUP BY year, month
 
 -- This is the precedent analysis broke down by month to see how maven toys perfomed month by month. Company revenue increased mont by month during 2017 with a little drop down during July and August. In 2018, revenue is constant with slightly increase, but ther is a drop down in August and september.
 -- Drop down periods should be analyzed to understand what happen during those periods that can explain the situation and find solution to improve next year. 
@@ -416,7 +416,7 @@ SELECT
 FROM inventory i
      LEFT JOIN products p
      USING(Product_ID)
-GROUP BY 1,2,3
+GROUP BY i.Product_ID, p.Product_Name, p.Product_Cost
 ORDER BY inventory_cost_per_product DESC
 ```
 
@@ -434,7 +434,7 @@ FROM
      FROM inventory i
          LEFT JOIN products p
          USING(Product_ID)
-     GROUP BY 1,2,3
+     GROUP BY i.Product_ID, p.Product_Name, p.Product_Cost
      ORDER BY inventory_cost_per_product DESC
      ) AS inv_cost
 
