@@ -179,7 +179,7 @@ ORDER BY Units_sold DESC  LIMIT 5
 -- Colorbuds is the first product sold in units(104368 units) followed by PlayDoh can(103128 units), Barrel O' Slime(91663 units), Deck Of Cards(84034 units) and Magic Sand(60598 units)
 ```
 3. Find how much Revenue per product have been made and the the first fifth revenue
-```sql-
+```sql
 SELECT 
      sales.Product_ID AS product_ID,
      products.Product_Name AS name,
