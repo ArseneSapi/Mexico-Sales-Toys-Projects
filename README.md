@@ -379,7 +379,7 @@ FROM
     GROUP BY YEAR(s.Date), s.Product_ID, d.Product_Name, d.Product_Price, d.Product_Cost 
     ) AS revenue_and_costs
 GROUP BY year
--- With this analysis we can see that even profit percentage seems to be stable from 2017 to 2018 (29.26% to 26.20%), It appears thaht revenu went down from 2017 to 2018 ($7,482,498.08 to $6,962,074.27); thios confirms what has been observed in precedent analysis.
+-- With this analysis we can see that even profit percentage seems to be stable from 2017 to 2018 (29.26% to 26.20%), It appears thaht revenu went down from 2017 to 2018 ($7,482,498.08 to $6,962,074.27); this confirms what has been observed in precedent analysis.
 ```
 
 10.Determine Total cost, total revenue, total profit and profit percentage per year and month
