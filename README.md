@@ -44,7 +44,7 @@ Result shows that Column 'Date' shoud be DATE type rather than TEXT.
    ALTER table sales
    modify Date DATE
 ```
-   b. stores
+  b. stores
 
 ```sql
      DESCRIBE stores
