@@ -1,15 +1,15 @@
 # Goal of the project.
-Mexico toys is the company which started toy sales business for about two years. Their owner want to know how company performs within this period in order to correct or adapt their strategy for the future.
+Mexico toys is the company which started toy sales business for about two years. Their owners want to know how company performs within this period in order to correct or adapt their strategy for the future.
 They are interested in several analysis as follows:
 -  Toys sales in terms of units sold and revenue per product, and also which product performs best.
 -  Revenue, cost and profit per product and also which product performs best.
--  Revenue, cost and profit per store location(store location is a main part of mexico toys commercial strategy).
+-  Revenue, cost and profit per store location(store location is a main part of Mexico toys commercial strategy).
 -  Revenue, cost and profit per toys category.
 -  Overall revenue, cost, profit and profit percentage.
 -  Overall revenue, cost, profit and profit percentage split in years and months.
 -  Current inventory volume and value.
 
-As data analyst, I have to povide the metrics that could measure those elements and provide best answers to mexico owners requests.
+As data analyst, I have to povide the metrics that could measure those elements and provide best answers to Mexico owners requests.
 In order to achieve this task, I choose to use Mysql database system to pull and analyze data provided by Mexico toys. To do that, I will follow the process as presented below. 
 1. Use mysql to create Mexico toys database and import csv files provided by the company.
 2. Proceed with data cleaning to ensure that data are safe from errors or incorrect informations.
@@ -18,7 +18,7 @@ In order to achieve this task, I choose to use Mysql database system to pull and
 5. Proceed with Analysis to understand how mexico sales business is doing.
 6. Provide Recommendations.
 
-Of course mexico toys company is a fictitious company and data are provided by maven Analytics. The interested reader will find the data source in the following link (Need an account on Maven Analytics): https://app.mavenanalytics.io/datasets?search=mexi
+Of course Mexico toys company is a fictitious company and data are provided by maven Analytics. The interested reader will find the data source in the following link (Need an account on Maven Analytics): https://app.mavenanalytics.io/datasets?search=mexi
 
 # Step 1: Create database and import data in Mysql.
 - First, create database with the following query.
