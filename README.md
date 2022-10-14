@@ -83,7 +83,7 @@ And then proceed to conversion into decimal using the following queries.
    ALTER TABLE products
    MODIFY Product_Cost DECIMAL(10,2)
 ```
--  Verify data type into table products
+Verify data type into table products
 ```sql
    SHOW FIELDS FROM products
 ```
