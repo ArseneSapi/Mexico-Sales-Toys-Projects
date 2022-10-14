@@ -146,13 +146,13 @@ FROM products
 ```
 
 3. Know the type of store location used by mexico toys company
-The following query will help to identify type of store location from stores table.
+-  The following query will help to identify type of store location from stores table.
 ```sql
 SELECT
    DISTINCT Store_Location
 FROM stores
 -- There are four type stores location AS follows: 
--- Residential, Commercial, Downtown and Airtport.
+-- Residential, Commercial, Downtown and Airport.
 ```
 
 # Step 4:  Analysis
