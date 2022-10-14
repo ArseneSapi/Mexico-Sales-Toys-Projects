@@ -280,12 +280,11 @@ FROM productRevenue pr
 
 -- M toys generate Total revenue of $14444582.35, Total cost of $ 10430543.35, Total profit of $4014029 and 24.79% of total profitability
 ```
-
 7. Determine Total cost, total revenue, total profit and profit percentage per type of location to see what impact store location has on mexico toys strategy.
 
 Remember there are four types of store location (residential, airport, commercial and downtown)
-
 Use a subquery as follows
+
 ```sql
 SELECT
      Store_Location,
