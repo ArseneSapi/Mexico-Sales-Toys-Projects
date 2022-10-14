@@ -1,8 +1,8 @@
 # Mexico-Sales-Toys-Project 
 
 # Goal of the project
-Mexico toys is the company which started sales toys business for about two years. Their owner want to know how company performs within this period in order to correct or adapt their strategy for the future.
-They are interested on several analysis as follows :
+Mexico toys is the company which started toy sales business for about two years. Their owner want to know how company performs within this period in order to correct or adapt their strategy for the future.
+They are interested in several analysis as follows :
 -  Toys sales in terms of units sold and revenue per product, and also which product performs best
 -  Revenue, cost and profit per product and also which product performs best
 -  Revenue, cost and profit per store location(store location is a main part of mexico toys commercial strategy)
@@ -10,50 +10,52 @@ They are interested on several analysis as follows :
 -  Overall revenue, cost, profit and profit percentage
 -  Overall revenue, cost, profit and profit percentage split in years and months
 -  Current inventory volume and value 
+
 As data analyst, I have to povide the metrics that could measure those elements and provide best answers to mexico owners requests.
-In order to achieve this task, I choose to use Mysql database system to pull and analyze data provided by Mexico toys. To do that,I will follow the process as presented below. 
+In order to achieve this task, I choose to use Mysql database system to pull and analyze data provided by Mexico toys. To do that, I will follow the process as presented below. 
 1. Use mysql to create Mexico toys database and import csv files provided by the company
-2. Proceed with data cleaning to ensure that data are safe from errors incorrects informations
+2. Proceed with data cleaning to ensure that data are safe from errors or incorrect informations
 3. Proceed with data transformation if necessary
 4. Proceed with Data manipulation if necessary
-5. Proceed with Analysis to understand what happen in mexico sales business
-6. Recommendations
+5. Proceed with Analysis to understand how mexico sales business is doing
+6. Provide Recommendations
 
-Of course mexico toys company is a fictitious company and datas are provides by maven Analytics. The data source is below https://app.mavenanalytics.io/datasets?search=mexi
+Of course mexico toys company is a fictitious company and data are provided by maven Analytics. The interested reader will find the data source in the following link : https://app.mavenanalytics.io/datasets?search=mexi
 
-# Step 1 Create databse and import data in Mysql
-- First create database with following query
+# Step 1: Create database and import data in Mysql
+- First, create database with the following query
 ```sql
    CREATE DATABASE mexicoSalestoys
 ```
-- And then import data in mysql (4 csv files) using data table import wizard. There are stores table, inventory table,
-products table, sales table
+- And then import data in mysql (4 csv files) using data table import wizard. 
 
-# Step 2 :  Data cleaning and transformation
+There are four tables : stores, inventory, products and sales.
+
+# Step 2:  Data cleaning and transformation
 1. Check if data type in tables are in appropriate format and update or modify them if necessary
 
-`a. table sales`
+`a. sales`
       
 ```sql
    SHOW FIELDS FROM sales
 ```
 Result shows that Column 'Date' shoud be DATE type rather than TEXT. 
--  To correct it, column 'Date' should be transformed from Text type to Date type with following query :
+-  To correct it, column 'Date' should be transformed from Text type to Date type with the following query :
 ```sql
    ALTER table sales
    modify Date DATE
 ```
-`b. table stores`
+`b. stores`
 ```sql
      DESCRIBE stores
 ```
 Result shows that Column 'Store_Open_Date' shoud be DATE type rather than TEXT type. 
--  To correct it, 'Store_Open_Date' should be transformed from Text type to Date type with following query :
+-  To correct it, 'Store_Open_Date' should be transformed from Text type to Date type with the following query :
 ```sql
    ALTER table stores
    modify Store_Open_Date DATE
 ```
-`c. table products`
+`c. products`
 ```sql
    DESCRIBE products
 ```
@@ -68,7 +70,7 @@ Product_cost and product_price columns should be INTEGER type or Decimal rather 
    UPDATE  products
    SET Product_Price = REPLACE(Product_Price,'$',' ')
 ```
--  And then proceed to conversion into decimal using following query 
+-  And then proceed to conversion into decimal using the following query 
 ```sql
    ALTER TABLE products
    MODIFY Product_Price DECIMAL(10,2)
@@ -102,15 +104,13 @@ HAVING ID_appearance > 1
 4. Empty Values : Verify if there is record with empty value in any column and decide how to deal with
 -  The following query will help to identify any empty values(in any column) in sales table
 ```sql
-SELECT 
-   * 
+SELECT  * 
 FROM sales
-WHERE 
-(Sale_ID || Date || Store_ID || Product_ID || Units ) IS NULL
+WHERE (Sale_ID || Date || Store_ID || Product_ID || Units ) IS NULL
  ```
-# Step 3 :  Data exploration
+# Step 3:  Data exploration
 1. Find the MINIMUM, MAXIMUM, Average of product price, product cost, units in stock 
--  Following code for Units in stock
+-  Units in stock
 ```sql 
 SELECT 
      MAX(Stock_On_Hand) AS Highest_stock,
@@ -118,7 +118,7 @@ SELECT
      AVG(Stock_On_Hand) AS Average_stock
 FROM inventory
 ```
--  Following query for product price
+-  Product price
 ```sql
 SELECT 
      MAX(Product_Price) AS Highest_sale_price,
@@ -126,7 +126,7 @@ SELECT
      AVG(Product_Price) AS Average__sale_price
 FROM products
 ```
--  Following query for product cost
+-  Product cost
 ```sql
 SELECT 
      MAX(Product_Cost) AS Highest_Product_Cost,
@@ -155,14 +155,14 @@ FROM stores
 -- Residential, Commercial, Downtown, Airtport
 ```
 
-# Step 4 :  Analysis
-1. Find how many sales transactions are made by mexico toys during the period
+# Step 4:  Analysis
+1. Find how many sale transactions are made by mexico toys during the period
 ```sql
 SELECT 
      COUNT(Sale_ID) AS total_sales_transactions
 FROM sales
 
--- There are 829262 sales transactions done by maven sales toys
+-- There are 829262 sale transactions done by maxico sales toys
 ```
 2. Find how many Sales Units per products have been made and higlight the first fifth products
 ```sql
@@ -212,8 +212,8 @@ ORDER BY cost_per_product DESC
 -- Lego bricks with its highest unit cost has the total highest cost($2,090,197.63) in terms of quantity sold
 ```
  
-5. Determine how product perform each other by calculating Profit and profit percentage per product
--  -  The following query helps to determine profit percentage per product
+5. Determine how products perform each by calculating profit and profit percentage per product
+- The following query helps to determine profit percentage per product
 ```sql
 SELECT 
      sales.Product_ID AS product_ID,
@@ -231,11 +231,13 @@ FROM sales
 GROUP BY sales.Product_ID, products.Product_Name, products.Product_Cost, products.product_price
 ORDER BY profit_percentage DESC 
 
--- With this analysis, product Jenga is the most profitable (70.07% of profitability) product for maven toys. Colorbuds, magic sand and others that drive highest revenue but are not as much profitable like Jenga.
+-- With this analysis, product Jenga is the most profitable (70.07% of profitability) product for Mexico toys. Colorbuds, magic sand and others that drive highest revenue but are not as much profitable like Jenga.
 ```
 6. It is also important to have the overall cost, revenue, profit and profit percentage made by mexico toys
-- Using temporary table is the method I use to make calculations
--  a. create a temporary table for revenue per product with the following query
+
+Using temporary table is the method I used to make calculations
+
+a. create a temporary table for revenue per product with the following query
 ```sql
 CREATE TEMPORARY TABLE productRevenue
 SELECT 
@@ -249,8 +251,7 @@ FROM sales
      ON sales.product_ID = d.product_ID
 GROUP BY sales.Product_ID, products.Product_Name, products.Product_Price
 ```
-
--  b. Create another Temporary table for cost per product with the following query
+  b. Create another Temporary table for cost per product with the following query
 ```sql
 CREATE TEMPORARY TABLE productCosts
 SELECT 
@@ -264,8 +265,7 @@ FROM sales
      ON sales.product_ID = products.product_ID
 GROUP BY sales.Product_ID, products.Product_Name, products.Product_Cost
 ```
-
--  THEN determine total profit and profit percentage by joining the two temporary tables and grouping revenue and costs
+  c. THEN determine total profit and profit percentage by joining the two temporary tables and grouping revenue and costs
 ```sql
 SELECT
      SUM(pr.revenue_per_product) AS total_revenue,
@@ -276,12 +276,12 @@ FROM productRevenue pr
      JOIN productCosts pc
      ON pr.product_ID = pc.product_ID
 
--- Maven toys generate Total revenue of $14444582.35, Total cost of $ 10430543.35, Total profit of $4014029 and 24.79% of total profitability
+-- M toys generate Total revenue of $14444582.35, Total cost of $ 10430543.35, Total profit of $4014029 and 24.79% of total profitability
 ```
 
-7. Determine Total cost, total revenue, total profit and profit percentage per type of location to see what impact sore location has on mexoco toys strategy.
+7. Determine Total cost, total revenue, total profit and profit percentage per type of location to see what impact store location has on mexico toys strategy.
 Remember there are four types of store location (residential, airport, commercial and downtown)
--  Use subquery as follows 
+-  Use a subquery as follows 
 ```sql
 SELECT 
     Store_Location,
@@ -344,7 +344,7 @@ GROUP BY year
 ```
 
 9. Determine Total cost, total revenue, total profit and profit percentage per year 
-- Use subquery as follows
+- Use a subquery as follows
 ```sql
 SELECT
      year,
@@ -400,7 +400,7 @@ FROM
      ) AS revenue_and_costs
 GROUP BY year, month
 
--- This is the precedent analysis broke down by month to see how maven toys perfomed month by month. Company revenue increased mont by month during 2017 with a little drop down during July and August. In 2018, revenue is constant with slightly increase, but ther is a drop down in August and september.
+-- This is the precedent analysis broke down by month to see how Mexico toys perfomed month by month. Company revenue increased mont by month during 2017 with a little drop down during July and August. In 2018, revenue is constant with slightly increase, but ther is a drop down in August and september.
 -- Drop down periods should be analyzed to understand what happen during those periods that can explain the situation and find solution to improve next year. 
 ```
 
@@ -441,25 +441,31 @@ FROM
 -- Total inventory costs is $300,209.58 mostly drived by lego bricks with its higher unit cost and volume. Monitor these inventory by findind the less sale or less profit product could be a great opportunity to reduce this cost and also increase profitability.
 ```
 
-12. Recomendations
+12. Recommendations
 
-   1. With this analysis, product Jenga is the most profitable (70.07% of profitability) product for maven toys. Colorbuds, magic sand and others that drive highest revenue but are not as much profitable like Jenga. 
-- Action should be taken to ensure that jenga will not run out of stock
-- Another action should be taken to revise cost chain of the most sold products like colorbuds or magic sand in order to increase their profitability
-
-
-   2. Maven toys generate Total revenue of $14444582.35, Total cost of $ 10430543.35, Total profit of $4014029 and 24.79% of total profitability. Even if revenue is higher in stores located in downtown and commercial, profit is higher in Airport location.
-- Costs in downtown location could be analyzed deeply to find what can be changed to improve profit there. There is also an opportunity to find how revenue could be improved in stores located in airport by increasing sales volumes there.
+      
+      1. With this analysis, the product named Jenga is the most profitable product (70.07% of profitability) for Mexico toys. Colorbuds, magic sand and few others drive highest revenue but are not as much as profitable like Jenga. 
+      
+         - Action should be taken to ensure that jenga will not run out of stock.
+         - Another action should be taken to revise cost chain of the most sold products like colorbuds or magic sand in order to increase their profitability.
 
 
-   3. This analysis help us to see how revenue per category is changing year by year. Only Arts & crafts goes up between 2017 and 2018 while other goes down. 
-   Deep analysis is necessary to understand why sales of those categories dropped down. 
--     Are there any products within those categories that are responsible for this situation?
+      2. Mexico toys generates a total revenue of $14444582.35, a total cost of $ 10430543.35, a total profit of $4014029 and 24.79% of total profitability. Even if revenue is higher in stores located in downtown and commercial, profit is higher in Airport locations.
+      
+         - Costs in downtown locations could be analyzed deeply to find what can be changed to improve profit there. There is also an opportunity to find how revenue could be improved in stores located in airports by increasing sales volumes there.
 
 
-   4. Analysis broke down by month reveals how maven toys perfomed month by month. Company revenue increased mont by month during 2017 with a little drop down during July and August. In 2018, revenue is constant with slightly increase, but there is a drop down in August and september.
-- Drop down periods (is there any particular event?) should be analyzed to understand what happen during those periods that can explain the situation and find solution to improve next 
+      3. This analysis helps us to see how revenue per category is changing year by year. Only the category "Arts & crafts" goes up between 2017 and 2018 while others go down. 
+   A deep analysis is necessary to understand why sales of those categories dropped down. 
+   
+         - Are there any products within those categories that are responsible for this situation?
 
 
-   5. Total inventory costs is $300,209.58 mostly drived by lego bricks with its higher unit cost and volume. 
-- Monitor these inventory by findind the less sale or less profit product could be a great opportunity to reduce this cost and also increase profitability.
+      4. The analysis broke down by month reveals how Mexico toys perfomed month by month. Company revenue increased month by month during 2017 with a little drop down during July and August. In 2018, revenue is constant with slightly increase, but there is a drop down in August and september.
+      
+         - Drop down periods (is there any particular event?) should be analyzed to understand what happen during those periods that can explain the situation and find solution to improve next.
+
+
+      5. The total inventory costs is $300,209.58 mostly driven by product lego bricks with its higher unit cost and volume. 
+      
+         - Monitor these inventory by findind the less sale or less profit product could be a great opportunity to reduce this cost and also increase profitability.
