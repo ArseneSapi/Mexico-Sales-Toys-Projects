@@ -84,14 +84,11 @@ Product_cost and product_price columns should be INTEGER type or Decimal rather 
 2. Verify if all data in date field are consistent.  
 
 -  Example of 'Store_Open_Date' column in stores table : Check if all data are in 'Year-month-day' to be sure that mysql will perform any task on date field. The following query will help to check.
-
 ```sql
-SELECT 
-   * 
+SELECT * 
 FROM stores
 WHERE Store_Open_Date <> DATE(STR_TO_DATE('Store_Open_Date', '%Y-%m-%d'))
 ```
-
 3. Duplicates records : Verify if data recorded is unique.
 
 -  The following query will help to know if data(column product_id) in products tables are unique:
