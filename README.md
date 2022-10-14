@@ -214,7 +214,8 @@ ORDER BY cost_per_product DESC
 ```
  
 5. Determine how products perform each by calculating profit and profit percentage per product
-- The following query helps to determine profit percentage per product
+
+The following query helps to determine profit percentage per product
 ```sql
 SELECT
      sales.Product_ID AS product_ID,
@@ -225,7 +226,7 @@ SELECT
      SUM(sales.units) * products.Product_Cost AS cost_per_product,
      products.Product_Price * SUM(sales.units) AS revenue_per_product,
      products.Product_Price * SUM(sales.units) - products.Product_Cost * SUM(sales.units) AS profit,
-     ROUND(((products.Product_Price * SUM(sales.units) - products.Product_Cost * SUM(sales.units)) / (products.Product_Price * SUM(sales.units))) *          100,2) AS profit_percentage
+     ROUND(((products.Product_Price * SUM(sales.units) - products.Product_Cost * SUM(sales.units)) / (products.Product_Price * SUM(sales.units))) *                100,2) AS profit_percentage
 FROM sales
      INNER JOIN products
      ON sales.product_ID = products.product_ID
