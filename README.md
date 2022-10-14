@@ -161,7 +161,7 @@ FROM stores
 SELECT
    COUNT(Sale_ID) AS total_sales_transactions
 FROM sales
--- There are 829262 sale transactions done by maxico sales toys
+-- There are 829262 sale transactions done by Mexico sales toys
 ```
 
 2. Find how many Sales Units per products have been made and higlight the first fifth products
@@ -327,7 +327,7 @@ SELECT
      SUM(CASE WHEN Product_Category = 'Sports & Outdoors' THEN revenue_per_product ELSE NULL END) AS Sports_Outdoors_revenue
 FROM
      (SELECT
-          Year(s.Date) As year,
+          Year(s.Date) AS year,
           d.Product_Category,
           s.Product_ID AS product_ID,
           d.Product_Name AS name,
@@ -426,7 +426,7 @@ ORDER BY inventory_cost_per_product DESC
 
 ```sql
 SELECT
-      SUM(inventory_cost_per_product) inv_cost
+      SUM(inventory_cost_per_product) AS inv_cost
 FROM
       (SELECT
          i.Product_ID,
