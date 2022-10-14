@@ -155,6 +155,7 @@ FROM stores
 -- Residential, Commercial, Downtown and Airport.
 ```
 # Step 4:  Analysis
+
 1. Find how many sale transactions are made by mexico toys during the period.
 ```sql
 SELECT
@@ -178,21 +179,22 @@ ORDER BY Units_sold DESC  LIMIT 5
 ```
 
 3. Find how much Revenue per product have been made and the the first fifth revenue
+
 ```sql
-SELECT 
+SELECT
      sales.Product_ID AS product_ID,
      products.Product_Name AS name,
      products.Product_Price,
      SUM(sales.units) AS Units_sold,
      products.Product_Price * SUM(sales.units) AS revenue_per_product
-FROM sales 
-     INNER JOIN products 
+FROM sales
+     INNER JOIN products
      ON sales.product_ID = products.product_ID
 GROUP BY sales.Product_ID, products.Product_Name, products.Product_Price
-ORDER BY revenue_per_product DESC  LIMIT 5  
-
--- Lego bricks is the first product sold in terms of revenue($2,388,882.63 followed by colorbuds, Magic sand, Action Figure, Rubiks Cube. We can see that because of its unit sale price, lego bricks drive more revenue than Colorbuds which has more units sold
+ORDER BY revenue_per_product DESC LIMIT 5
+-- Lego bricks is the first product sold in terms of revenue($2,388,882.63 followed by colorbuds, Magic sand, Action Figure, Rubiks Cube. We can see that because of its unit sale price, lego bricks drive more revenue than Colorbuds which has more units sold.
 ```
+
 4. Find how much money mexico Toys spent on product sold
 -  The following query helps to determine Cost per product for units sold
 ```sql
