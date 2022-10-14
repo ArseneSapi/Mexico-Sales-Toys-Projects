@@ -291,6 +291,7 @@ FROM productRevenue pr
 7.Determine Total cost, total revenue, total profit and profit percentage per type of location to see what impact store location has on mexico toys strategy.
 
 Remember there are four types of store location (residential, airport, commercial and downtown)
+
 Use a subquery as follows
 
 ```sql
