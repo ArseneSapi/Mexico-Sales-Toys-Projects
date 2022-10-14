@@ -196,27 +196,27 @@ ORDER BY revenue_per_product DESC LIMIT 5
 ```
 
 4. Find how much money mexico Toys spent on product sold
--  The following query helps to determine Cost per product for units sold
+- The following query helps to determine Cost per product for units sold
+
 ```sql
-SELECT 
+SELECT
      sales.Product_ID AS product_ID,
      products.Product_Name AS name,
      products.Product_Cost,
      SUM(sales.units) AS Units_sold,
      products.Product_Cost * SUM(sales.units) AS cost_per_product
-FROM sales 
-     INNER JOIN products 
+FROM sales
+     INNER JOIN products
      ON sales.product_ID = products.product_ID
 GROUP BY sales.Product_ID, products.Product_Name, products.Product_Cost
-ORDER BY cost_per_product DESC 
-
--- Lego bricks with its highest unit cost has the total highest cost($2,090,197.63) in terms of quantity sold
+ORDER BY cost_per_product DESC
+-- Lego bricks with its highest unit cost has the total highest cost($2,090,197.63) in terms of quantity sold.
 ```
  
 5. Determine how products perform each by calculating profit and profit percentage per product
 - The following query helps to determine profit percentage per product
 ```sql
-SELECT 
+SELECT
      sales.Product_ID AS product_ID,
      products.Product_Name AS name,
      products.Product_Cost,
@@ -225,15 +225,15 @@ SELECT
      SUM(sales.units) * products.Product_Cost AS cost_per_product,
      products.Product_Price * SUM(sales.units) AS revenue_per_product,
      products.Product_Price * SUM(sales.units) - products.Product_Cost * SUM(sales.units) AS profit,
-     ROUND(((products.Product_Price * SUM(sales.units) - products.Product_Cost * SUM(sales.units)) / (products.Product_Price * SUM(sales.units))) * 100, 2) AS profit_percentage
-FROM sales 
-     INNER JOIN products 
+     ROUND(((products.Product_Price * SUM(sales.units) - products.Product_Cost * SUM(sales.units)) / (products.Product_Price * SUM(sales.units))) *          100,2) AS profit_percentage
+FROM sales
+     INNER JOIN products
      ON sales.product_ID = products.product_ID
 GROUP BY sales.Product_ID, products.Product_Name, products.Product_Cost, products.product_price
-ORDER BY profit_percentage DESC 
-
+ORDER BY profit_percentage DESC
 -- With this analysis, product Jenga is the most profitable (70.07% of profitability) product for Mexico toys. Colorbuds, magic sand and others that drive highest revenue but are not as much profitable like Jenga.
 ```
+
 6. It is also important to have the overall cost, revenue, profit and profit percentage made by mexico toys
 
 Using temporary table is the method I used to make calculations
