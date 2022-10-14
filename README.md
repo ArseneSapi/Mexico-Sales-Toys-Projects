@@ -376,7 +376,7 @@ GROUP BY year
 10. Determine Total cost, total revenue, total profit and profit percentage per year and month
 
 Use subquery as follows
-`` sql
+```sql
 SELECT
      year,
      month,
