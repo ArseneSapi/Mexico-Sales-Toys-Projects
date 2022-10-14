@@ -234,7 +234,7 @@ SELECT
      SUM(sales.units) * products.Product_Cost AS cost_per_product,
      products.Product_Price * SUM(sales.units) AS revenue_per_product,
      products.Product_Price * SUM(sales.units) - products.Product_Cost * SUM(sales.units) AS profit,
-     ROUND(((products.Product_Price * SUM(sales.units) - products.Product_Cost * SUM(sales.units)) / (products.Product_Price * SUM(sales.units))) *                100,2) AS profit_percentage
+     ROUND(((products.Product_Price * SUM(sales.units) - products.Product_Cost * SUM(sales.units)) / (products.Product_Price * SUM(sales.units)))            *100,2) AS profit_percentage
 FROM sales
      INNER JOIN products
      ON sales.product_ID = products.product_ID
