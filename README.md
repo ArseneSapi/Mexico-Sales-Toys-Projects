@@ -137,11 +137,12 @@ FROM products
 ```
 2. Know the product category of toys sold 
 -  The following query will help to identify product category from products table.
+
 ```sql SELECT DISTINCT Product_Category AS category
 FROM products
-
 -- There are only five products categories as follows ;  
--- Toys, Arts & Crafts, Games, Electronics, Sports & Outdoors.```
+-- Toys, Arts & Crafts, Games, Electronics, Sports & Outdoors
+```
 
 
 3. Know the type of store location used by mexico toys company
@@ -421,11 +422,12 @@ ORDER BY inventory_cost_per_product DESC
 ```
 
 - Total inventory cost
+
 ```sql
 SELECT
-     SUM(inventory_cost_per_product) inv_cost
+      SUM(inventory_cost_per_product) inv_cost
 FROM
-     (SELECT
+      (SELECT
          i.Product_ID,
          p.Product_Name,
          p.Product_Cost,
@@ -437,7 +439,6 @@ FROM
      GROUP BY i.Product_ID, p.Product_Name, p.Product_Cost
      ORDER BY inventory_cost_per_product DESC
      ) AS inv_cost
-
 -- Total inventory costs is $300,209.58 mostly drived by lego bricks with its higher unit cost and volume. Monitor these inventory by findind the less sale or less profit product could be a great opportunity to reduce this cost and also increase profitability.
 ```
 
