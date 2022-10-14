@@ -108,10 +108,10 @@ SELECT  *
 FROM sales
 WHERE (Sale_ID || Date || Store_ID || Product_ID || Units) IS NULL
  ```
- 
+
 # Step 3:  Data exploration
 1. Find the MINIMUM, MAXIMUM, Average of product price, product cost, units in stock.
--  Units in stock
+  - Units in stock
 ```sql 
 SELECT 
      MAX(Stock_On_Hand) AS Highest_stock,
@@ -119,7 +119,7 @@ SELECT
      AVG(Stock_On_Hand) AS Average_stock
 FROM inventory
 ```
--  Product price
+  - Product price
 ```sql
 SELECT 
      MAX(Product_Price) AS Highest_sale_price,
@@ -127,7 +127,7 @@ SELECT
      AVG(Product_Price) AS Average__sale_price
 FROM products
 ```
--  Product cost
+  - Product cost
 ```sql
 SELECT 
      MAX(Product_Cost) AS Highest_Product_Cost,
@@ -136,7 +136,7 @@ SELECT
 FROM products
 ```
 2. Know the product category of toys sold 
--  The following query will help to identify product category from products table.
+  - The following query will help to identify product category from products table.
 ```sql
 SELECT
    DISTINCT Product_Category AS category
@@ -144,9 +144,8 @@ FROM products
 -- There are only five products categories as follows:
 -- Toys, Arts & Crafts, Games, Electronic, Sports & Outdoors
 ```
-
 3. Know the type of store location used by mexico toys company
--  The following query will help to identify type of store location from stores table.
+  - The following query will help to identify type of store location from stores table.
 ```sql
 SELECT
    DISTINCT Store_Location
@@ -154,6 +153,7 @@ FROM stores
 -- There are four type stores location AS follows:
 -- Residential, Commercial, Downtown and Airport.
 ```
+
 # Step 4:  Analysis
 
 1. Find how many sale transactions are made by mexico toys during the period.
