@@ -385,7 +385,7 @@ SELECT
      SUM(revenue_per_product) - SUM(cost_per_product) AS profit,
      (SUM(revenue_per_product) - SUM(cost_per_product)) / SUM(revenue_per_product) AS profit_percentage
 FROM
-     (SELECT
+      (SELECT
          YEAR(s.Date) AS year,
          MONTH(s.date) AS month,
          s.Product_ID AS product_ID,
@@ -400,7 +400,7 @@ FROM
            ON s.product_ID = d.product_ID
            GROUP BY YEAR(s.Date), MONTH(s.date), s.Product_ID, d.Product_Name, d.Product_Price, d.Product_Cost
            ) AS revenue_and_costs
-GROUP BY year, month
+           GROUP BY year, month
 -- This is the precedent analysis broke down by month to see how Mexico toys perfomed month by month. Company revenue increased mont by month during 2017 with a little drop down during July and August. In 2018, revenue is constant with slightly increase, but ther is a drop down in August and september.
 -- Drop down periods should be analyzed to understand what happen during those periods that can explain the situation and find solution to improve next year.
 ```
