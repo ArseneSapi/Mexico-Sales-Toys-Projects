@@ -1,5 +1,3 @@
-# Mexico-Sales-Toys-Project 
-
 # Goal of the project.
 Mexico toys is the company which started toy sales business for about two years. Their owner want to know how company performs within this period in order to correct or adapt their strategy for the future.
 They are interested in several analysis as follows:
