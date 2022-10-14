@@ -139,7 +139,7 @@ FROM products
 -  The following query will help to identify product category from products table.
 ```sql
 SELECT
-DISTINCT Product_Category AS category
+   DISTINCT Product_Category AS category
 FROM products
 -- There are only five products categories as follows:
 -- Toys, Arts & Crafts, Games, Electronic, Sports & Outdoors
@@ -147,24 +147,23 @@ FROM products
 
 3. Know the type of store location used by mexico toys company
 The following query will help to identify type of store location from stores table.
-```sql 
-SELECT 
-     DISTINCT Store_Location
+```sql
+SELECT
+   DISTINCT Store_Location
 FROM stores
-
--- There are four type stores location AS follows : 
+-- There are four type stores location AS follows: 
 -- Residential, Commercial, Downtown and Airtport.
 ```
 
 # Step 4:  Analysis
 1. Find how many sale transactions are made by mexico toys during the period.
 ```sql
-SELECT 
-     COUNT(Sale_ID) AS total_sales_transactions
+SELECT
+   COUNT(Sale_ID) AS total_sales_transactions
 FROM sales
-
 -- There are 829262 sale transactions done by maxico sales toys
 ```
+
 2. Find how many Sales Units per products have been made and higlight the first fifth products
 ```sql
 SELECT 
