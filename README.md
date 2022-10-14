@@ -89,6 +89,7 @@ SELECT *
 FROM stores
 WHERE Store_Open_Date <> DATE(STR_TO_DATE('Store_Open_Date', '%Y-%m-%d'))
 ```
+
 3. Duplicates records : Verify if data recorded is unique.
 
 -  The following query will help to know if data(column product_id) in products tables are unique:
