@@ -137,14 +137,13 @@ FROM products
 ```
 2. Know the product category of toys sold 
 -  The following query will help to identify product category from products table.
-
-```sql
-SELECT DISTINCT Product_Category AS category
+```sql SELECT DISTINCT Product_Category AS category
 FROM products
 
 -- There are only five products categories as follows ;  
--- Toys, Arts & Crafts, Games, Electronics, Sports & Outdoors.
-```
+-- Toys, Arts & Crafts, Games, Electronics, Sports & Outdoors.```
+
+
 3. Know the type of store location used by mexico toys company
 The following query will help to identify type of store location from stores table.
 ```sql 
