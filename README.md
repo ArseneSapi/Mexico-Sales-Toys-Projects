@@ -151,10 +151,9 @@ FROM products
 SELECT
    DISTINCT Store_Location
 FROM stores
--- There are four type stores location AS follows: 
+-- There are four type stores location AS follows:
 -- Residential, Commercial, Downtown and Airport.
 ```
-
 # Step 4:  Analysis
 1. Find how many sale transactions are made by mexico toys during the period.
 ```sql
