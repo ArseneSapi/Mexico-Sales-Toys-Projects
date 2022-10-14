@@ -410,7 +410,7 @@ FROM
            GROUP BY YEAR(s.Date), MONTH(s.date), s.Product_ID, d.Product_Name, d.Product_Price, d.Product_Cost
            ) AS revenue_and_costs
            GROUP BY year, month
--- This is the precedent analysis broke down by month to see how Mexico toys perfomed month by month. Company revenue increased mont by month during 2017 with a little drop down during July and August. In 2018, revenue is constant with slightly increase, but ther is a drop down in August and september.
+-- This is the precedent analysis broke down by month to see how Mexico toys perfomed month by month. Company revenue increased month by month during 2017 with a little drop down during July and August. In 2018, revenue is constant with slightly increase, but there is a drop down in August and september.
 -- Drop down periods should be analyzed to understand what happen during those periods that can explain the situation and find solution to improve next year.
 ```
 
