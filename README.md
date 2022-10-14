@@ -32,7 +32,7 @@ There are four tables : stores, inventory, products and sales.
 # Step 2:  Data cleaning and transformation
 1. Check if data type in tables are in appropriate format and update or modify them if necessary.
 
-  `a. sales`
+            a. Sales
       
 ```sql
    SHOW FIELDS FROM sales
@@ -43,7 +43,7 @@ Result shows that Column 'Date' shoud be DATE type rather than TEXT.
    ALTER table sales
    modify Date DATE
 ```
-  `b. stores`
+            b. stores
 ```sql
      DESCRIBE stores
 ```
@@ -53,7 +53,7 @@ Result shows that Column 'Store_Open_Date' shoud be DATE type rather than TEXT t
    ALTER table stores
    modify Store_Open_Date DATE
 ```
-  `c. products`
+            c. products
 ```sql
    DESCRIBE products
 ```
