@@ -464,8 +464,7 @@ FROM
          - Costs in downtown locations could be analyzed deeply to find what can be changed to improve profit there. There is also an opportunity to find how revenue could be improved in stores located in airports by increasing sales volumes there.
 
       3. This analysis helps us to see how revenue per category is changing year by year. Only the category "Arts & crafts" goes up between 2017 and 2018 while others go down.
-      
-A deep analysis is necessary to understand why sales of those categories dropped down. Are there any products within those categories that are responsible for this situation?
+    A deep analysis is necessary to understand why sales of those categories dropped down. Are there any products within those categories that are responsible for this situation?
 
       4. The analysis broke down by month reveals how Mexico toys perfomed month by month. Company revenue increased month by month during 2017 with a little drop down during July and August. In 2018, revenue is constant with slightly increase, but there is a drop down in August and september.
       
