@@ -144,7 +144,7 @@ SELECT
 FROM products
 
 -- There are only five products categories as follows:
-  - Toys, Arts & Crafts, Games, Electronics, Sports & Outdoors
+-- Toys, Arts & Crafts, Games, Electronics, Sports & Outdoors
 ```
 
 
