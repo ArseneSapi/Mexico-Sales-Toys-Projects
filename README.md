@@ -47,8 +47,9 @@ Result shows that Column 'Date' shoud be DATE type rather than TEXT.
 ```sql
      DESCRIBE stores
 ```
-Result shows that Column 'Store_Open_Date' shoud be DATE type rather than TEXT type. 
--  To correct it, 'Store_Open_Date' should be transformed from Text type to Date type with the following query :
+Result shows that Column 'Store_Open_Date' shoud be DATE type rather than TEXT type.
+
+To correct it, 'Store_Open_Date' should be transformed from Text type to Date type with the following query :
 ```sql
    ALTER table stores
    modify Store_Open_Date DATE
@@ -57,9 +58,11 @@ Result shows that Column 'Store_Open_Date' shoud be DATE type rather than TEXT t
 ```sql
    DESCRIBE products
 ```
-Product_cost and product_price columns should be INTEGER type or Decimal rather than TEXT. 
--  To correct it, those columns should be transformed from Text type to Decimal type. But they content '$' sign, So we need first to remove this sign, otherwise conversion into DECIMAL or INT will fail
--  Remove '$' sign by remplacing it with space with the following query.
+Product_cost and product_price columns should be INTEGER type or Decimal rather than TEXT.
+
+To correct it, those columns should be transformed from Text type to Decimal type. But they content '$' sign, So we need first to remove this sign, otherwise conversion into DECIMAL or INT will fail.
+
+Remove '$' sign by remplacing it with space with the following query.
 ```sql
    UPDATE  products
    SET Product_Cost = REPLACE(Product_Cost,'$',' ')
@@ -68,7 +71,8 @@ Product_cost and product_price columns should be INTEGER type or Decimal rather 
    UPDATE  products
    SET Product_Price = REPLACE(Product_Price,'$',' ')
 ```
--  And then proceed to conversion into decimal using the following query.
+
+And then proceed to conversion into decimal using the following queries.
 ```sql
    ALTER TABLE products
    MODIFY Product_Price DECIMAL(10,2)
@@ -81,6 +85,7 @@ Product_cost and product_price columns should be INTEGER type or Decimal rather 
 ```sql
    SHOW FIELDS FROM products
 ```
+
 2. Verify if all data in date field are consistent.  
 
 -  Example of 'Store_Open_Date' column in stores table : Check if all data are in 'Year-month-day' to be sure that mysql will perform any task on date field. The following query will help to check.
