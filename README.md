@@ -31,6 +31,7 @@ There are four tables : stores, inventory, products and sales.
 
 # Step 2:  Data cleaning and transformation
 1. Check if data type in tables are in appropriate format and update or modify them if necessary.
+
   `a. sales`
       
 ```sql
