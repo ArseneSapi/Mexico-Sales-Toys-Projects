@@ -286,7 +286,7 @@ FROM productRevenue pr
      JOIN productCosts pc
      ON pr.product_ID = pc.product_ID
 
--- M toys generate Total revenue of $14444582.35, Total cost of $ 10430543.35, Total profit of $4014029 and 24.79% of total profitability
+-- Mexico toys generate Total revenue of $14444582.35, Total cost of $ 10430543.35, Total profit of $4014029 and 24.79% of total profitability
 ```
 7.Determine Total cost, total revenue, total profit and profit percentage per type of location to see what impact store location has on mexico toys strategy.
 
