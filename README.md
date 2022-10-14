@@ -203,7 +203,7 @@ ORDER BY revenue_per_product DESC LIMIT 5
 -- Lego bricks is the first product sold in terms of revenue($2,388,882.63 followed by colorbuds, Magic sand, Action Figure, Rubiks Cube. We can see that because of its unit sale price, lego bricks drive more revenue than Colorbuds which has more units sold.
 ```
 
-4. Find how much money mexico Toys spent on product sold
+4.Find how much money mexico Toys spent on product sold
 - The following query helps to determine Cost per product for units sold
 
 ```sql
@@ -221,7 +221,7 @@ ORDER BY cost_per_product DESC
 -- Lego bricks with its highest unit cost has the total highest cost($2,090,197.63) in terms of quantity sold.
 ```
  
-5. Determine how products perform each by calculating profit and profit percentage per product
+5.Determine how products perform each by calculating profit and profit percentage per product
 
 The following query helps to determine profit percentage per product
 ```sql
@@ -243,7 +243,7 @@ ORDER BY profit_percentage DESC
 -- With this analysis, product Jenga is the most profitable (70.07% of profitability) product for Mexico toys. Colorbuds, magic sand and others that drive highest revenue but are not as much profitable like Jenga.
 ```
 
-6. It is also important to have the overall cost, revenue, profit and profit percentage made by mexico toys
+6.It is also important to have the overall cost, revenue, profit and profit percentage made by mexico toys
 
 Using temporary table is the method I used to make calculations
 
@@ -288,7 +288,7 @@ FROM productRevenue pr
 
 -- M toys generate Total revenue of $14444582.35, Total cost of $ 10430543.35, Total profit of $4014029 and 24.79% of total profitability
 ```
-7. Determine Total cost, total revenue, total profit and profit percentage per type of location to see what impact store location has on mexico toys strategy.
+7.Determine Total cost, total revenue, total profit and profit percentage per type of location to see what impact store location has on mexico toys strategy.
 
 Remember there are four types of store location (residential, airport, commercial and downtown)
 Use a subquery as follows
@@ -322,7 +322,7 @@ ORDER BY profit_percentage DESC
 -- Even if revenue is higher in stores located in downtown and commercial, profit is higher in Airport location. I think that costs in downtown could be analyzed deeply to find what can be changed to improve profit there. There is also an opportunity to find how revenue could improved in stores located in airport.
 ```
 
-8. Determine Total cost, total revenue, total profit and profit percentage per year and per category of toys. 
+8.Determine Total cost, total revenue, total profit and profit percentage per year and per category of toys. 
 
 Use subquery and CASE function as follows
 ```sql
@@ -353,7 +353,7 @@ GROUP BY year
 -- This analysis help us to see how revenue per category is changing year by year. Only Arts & crafts goes up between 2017 and 2018 while other goes down. Deep analysis is necessary to understand why sales of those categories dropped down. Are there any products within those categories that are responsible for this situation?
 ```
 
-9. Determine Total cost, total revenue, total profit and profit percentage per year 
+9.Determine Total cost, total revenue, total profit and profit percentage per year 
 
 Use a subquery as follows
 ```sql
@@ -381,7 +381,7 @@ GROUP BY year
 -- With this analysis we can see that even profit percentage seems to be stable from 2017 to 2018 (29.26% to 26.20%), It appears thaht revenu went down from 2017 to 2018 ($7,482,498.08 to $6,962,074.27); thios confirms what has been observed in precedent analysis.
 ```
 
-10. Determine Total cost, total revenue, total profit and profit percentage per year and month
+10.Determine Total cost, total revenue, total profit and profit percentage per year and month
 
 Use subquery as follows
 ```sql
@@ -413,7 +413,7 @@ FROM
 -- Drop down periods should be analyzed to understand what happen during those periods that can explain the situation and find solution to improve next year.
 ```
 
-11. It is also important to know the volume and value of our inventory 
+11.It is also important to know the volume and value of our inventory 
 
 The following code will help to evaluate these metrics
 ```sql
@@ -451,7 +451,7 @@ FROM
 -- Total inventory costs is $300,209.58 mostly drived by lego bricks with its higher unit cost and volume. Monitor these inventory by findind the less sale or less profit product could be a great opportunity to reduce this cost and also increase profitability.
 ```
 
-12. Recommendations
+12.Recommendations
 
       
       1. With this analysis, the product named Jenga is the most profitable product (70.07% of profitability) for Mexico toys. Colorbuds, magic sand and few others drive highest revenue but are not as much as profitable like Jenga. 
