@@ -282,17 +282,19 @@ FROM productRevenue pr
 ```
 
 7. Determine Total cost, total revenue, total profit and profit percentage per type of location to see what impact store location has on mexico toys strategy.
+
 Remember there are four types of store location (residential, airport, commercial and downtown)
--  Use a subquery as follows 
+
+Use a subquery as follows
 ```sql
-SELECT 
-    Store_Location,
-    SUM(revenue_per_product) AS revenue,
-    SUM(cost_per_product) AS costs,
-    SUM(revenue_per_product) - SUM(cost_per_product) AS profit,
-    (SUM(revenue_per_product) - SUM(cost_per_product)) / SUM(revenue_per_product) AS profit_percentage
+SELECT
+     Store_Location,
+     SUM(revenue_per_product) AS revenue,
+     SUM(cost_per_product) AS costs,
+     SUM(revenue_per_product) - SUM(cost_per_product) AS profit,
+     (SUM(revenue_per_product) - SUM(cost_per_product)) / SUM(revenue_per_product) AS profit_percentage
 FROM
-    (SELECT
+     (SELECT
          st.Store_Location,
          s.Product_ID AS product_ID,
          d.Product_Name AS name,
@@ -301,23 +303,23 @@ FROM
          SUM(s.units) AS Units_sold,
          d.Product_Price * SUM(s.units) AS revenue_per_product,
          SUM(s.units) * d.Product_Cost  AS cost_per_product
-    FROM sales s
+     FROM sales s
          INNER JOIN products d
          ON s.product_ID = d.product_ID
          INNER JOIN stores st
          ON st.Store_ID = s.Store_ID
-    GROUP BY st.Store_Location, s.Product_ID, d.Product_Name, d.Product_Price, d.Product_Cost
-    ) AS revenue_and_costs
+         GROUP BY st.Store_Location, s.Product_ID, d.Product_Name, d.Product_Price, d.Product_Cost
+         ) AS revenue_and_costs
 GROUP BY Store_Location
-ORDER BY profit_percentage DESC  
-
--- Even if revenue is higher in stores located in downtown and commercial, profit is higher in Airport location. I think that costs in downtown could be analyzed deeply to find what can be changed to improve profit there. There is also an opportunity to find how revenue could improved in stores located in airport
+ORDER BY profit_percentage DESC
+-- Even if revenue is higher in stores located in downtown and commercial, profit is higher in Airport location. I think that costs in downtown could be analyzed deeply to find what can be changed to improve profit there. There is also an opportunity to find how revenue could improved in stores located in airport.
 ```
 
-8. Determine Total cost, total revenue, total profit and profit percentage per year and per category of toys 
-- Use subquery and CASE function as follows
+8. Determine Total cost, total revenue, total profit and profit percentage per year and per category of toys. 
+
+Use subquery and CASE function as follows
 ```sql
-SELECT 
+SELECT
      year,
      SUM(CASE WHEN Product_Category = 'Toys' THEN revenue_per_product ELSE NULL END) AS toys_revenue,
      SUM(CASE WHEN Product_Category = 'Art & Crafts' THEN revenue_per_product ELSE NULL END) AS Art_Crafts_revenue,
@@ -325,7 +327,7 @@ SELECT
      SUM(CASE WHEN Product_Category = 'Electronics' THEN revenue_per_product ELSE NULL END) AS Electronics_revenue,
      SUM(CASE WHEN Product_Category = 'Sports & Outdoors' THEN revenue_per_product ELSE NULL END) AS Sports_Outdoors_revenue
 FROM
-    (SELECT
+     (SELECT
           Year(s.Date) As year,
           d.Product_Category,
           s.Product_ID AS product_ID,
@@ -341,7 +343,6 @@ FROM
      GROUP BY Year(s.Date), d.Product_Category, s.Product_ID, d.Product_Name, d.Product_Price, d.Product_Cost
      ) AS revenue_and_costs
 GROUP BY year
-
 -- This analysis help us to see how revenue per category is changing year by year. Only Arts & crafts goes up between 2017 and 2018 while other goes down. Deep analysis is necessary to understand why sales of those categories dropped down. Are there any products within those categories that are responsible for this situation?
 ```
 
