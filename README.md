@@ -407,6 +407,7 @@ GROUP BY year, month
 
 11. It is also important to know the volume and value of our inventory 
 - The following code will help to evaluate these metrics
+
 ```sql
 SELECT
      i.Product_ID,
