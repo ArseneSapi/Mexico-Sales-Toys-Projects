@@ -90,7 +90,6 @@ SELECT *
 FROM stores
 WHERE Store_Open_Date <> DATE(STR_TO_DATE('Store_Open_Date', '%Y-%m-%d'))
 ```
-
 3. Duplicates records : Verify if data recorded is unique.
 
 -  The following query will help to know if data(column product_id) in products tables are unique:
@@ -109,6 +108,7 @@ SELECT  *
 FROM sales
 WHERE (Sale_ID || Date || Store_ID || Product_ID || Units) IS NULL
  ```
+ 
 # Step 3:  Data exploration
 1. Find the MINIMUM, MAXIMUM, Average of product price, product cost, units in stock.
 -  Units in stock
