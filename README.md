@@ -204,8 +204,8 @@ ORDER BY revenue_per_product DESC LIMIT 5
 ```
 
 4.Find how much money mexico Toys spent on product sold
-- The following query helps to determine Cost per product for units sold
 
+The following query helps to determine Cost per product for units sold
 ```sql
 SELECT
      sales.Product_ID AS product_ID,
