@@ -1,29 +1,29 @@
 # Mexico-Sales-Toys-Project 
 
-# Goal of the project
+# Goal of the project.
 Mexico toys is the company which started toy sales business for about two years. Their owner want to know how company performs within this period in order to correct or adapt their strategy for the future.
-They are interested in several analysis as follows :
--  Toys sales in terms of units sold and revenue per product, and also which product performs best
--  Revenue, cost and profit per product and also which product performs best
--  Revenue, cost and profit per store location(store location is a main part of mexico toys commercial strategy)
--  Revenue, cost and profit per toys category
--  Overall revenue, cost, profit and profit percentage
--  Overall revenue, cost, profit and profit percentage split in years and months
--  Current inventory volume and value 
+They are interested in several analysis as follows:
+-  Toys sales in terms of units sold and revenue per product, and also which product performs best.
+-  Revenue, cost and profit per product and also which product performs best.
+-  Revenue, cost and profit per store location(store location is a main part of mexico toys commercial strategy).
+-  Revenue, cost and profit per toys category.
+-  Overall revenue, cost, profit and profit percentage.
+-  Overall revenue, cost, profit and profit percentage split in years and months.
+-  Current inventory volume and value.
 
 As data analyst, I have to povide the metrics that could measure those elements and provide best answers to mexico owners requests.
 In order to achieve this task, I choose to use Mysql database system to pull and analyze data provided by Mexico toys. To do that, I will follow the process as presented below. 
-1. Use mysql to create Mexico toys database and import csv files provided by the company
-2. Proceed with data cleaning to ensure that data are safe from errors or incorrect informations
-3. Proceed with data transformation if necessary
-4. Proceed with Data manipulation if necessary
-5. Proceed with Analysis to understand how mexico sales business is doing
-6. Provide Recommendations
+1. Use mysql to create Mexico toys database and import csv files provided by the company.
+2. Proceed with data cleaning to ensure that data are safe from errors or incorrect informations.
+3. Proceed with data transformation if necessary.
+4. Proceed with Data manipulation if necessary.
+5. Proceed with Analysis to understand how mexico sales business is doing.
+6. Provide Recommendations.
 
-Of course mexico toys company is a fictitious company and data are provided by maven Analytics. The interested reader will find the data source in the following link : https://app.mavenanalytics.io/datasets?search=mexi
+Of course mexico toys company is a fictitious company and data are provided by maven Analytics. The interested reader will find the data source in the following link (Need an account on Maven Analytics): https://app.mavenanalytics.io/datasets?search=mexi
 
-# Step 1: Create database and import data in Mysql
-- First, create database with the following query
+# Step 1: Create database and import data in Mysql.
+- First, create database with the following query.
 ```sql
    CREATE DATABASE mexicoSalestoys
 ```
@@ -32,7 +32,7 @@ Of course mexico toys company is a fictitious company and data are provided by m
 There are four tables : stores, inventory, products and sales.
 
 # Step 2:  Data cleaning and transformation
-1. Check if data type in tables are in appropriate format and update or modify them if necessary
+1. Check if data type in tables are in appropriate format and update or modify them if necessary.
 
 `a. sales`
       
@@ -61,7 +61,7 @@ Result shows that Column 'Store_Open_Date' shoud be DATE type rather than TEXT t
 ```
 Product_cost and product_price columns should be INTEGER type or Decimal rather than TEXT. 
 -  To correct it, those columns should be transformed from Text type to Decimal type. But they content '$' sign, So we need first to remove this sign, otherwise conversion into DECIMAL or INT will fail
--  Remove '$' sign by remplacing it with space with the following query
+-  Remove '$' sign by remplacing it with space with the following query.
 ```sql
    UPDATE  products
    SET Product_Cost = REPLACE(Product_Cost,'$',' ')
@@ -70,7 +70,7 @@ Product_cost and product_price columns should be INTEGER type or Decimal rather 
    UPDATE  products
    SET Product_Price = REPLACE(Product_Price,'$',' ')
 ```
--  And then proceed to conversion into decimal using the following query 
+-  And then proceed to conversion into decimal using the following query.
 ```sql
    ALTER TABLE products
    MODIFY Product_Price DECIMAL(10,2)
@@ -91,8 +91,8 @@ SELECT
 FROM stores
 WHERE Store_Open_Date <> DATE(STR_TO_DATE('Store_Open_Date', '%Y-%m-%d'))
 ```
-3. Duplicates records : Verify if data recorded is unique
--  The following query will help to know if data(column product_id) in products tables are unique :
+3. Duplicates records : Verify if data recorded is unique.
+-  The following query will help to know if data(column product_id) in products tables are unique:
 ```sql
 SELECT 
       product_ID,
@@ -101,15 +101,15 @@ FROM products
 GROUP BY product_ID
 HAVING ID_appearance > 1
 ```
-4. Empty Values : Verify if there is record with empty value in any column and decide how to deal with
--  The following query will help to identify any empty values(in any column) in sales table
+4. Empty Values : Verify if there is record with empty value in any column and decide how to deal with.
+-  The following query will help to identify any empty values(in any column) in sales table.
 ```sql
 SELECT  * 
 FROM sales
 WHERE (Sale_ID || Date || Store_ID || Product_ID || Units ) IS NULL
  ```
 # Step 3:  Data exploration
-1. Find the MINIMUM, MAXIMUM, Average of product price, product cost, units in stock 
+1. Find the MINIMUM, MAXIMUM, Average of product price, product cost, units in stock.
 -  Units in stock
 ```sql 
 SELECT 
@@ -135,28 +135,28 @@ SELECT
 FROM products
 ```
 2. Know the product category of toys sold 
--  The following query will help to identify product category from products table
+-  The following query will help to identify product category from products table.
 ```sql
 SELECT 
 DISTINCT Product_Category AS category
 FROM products
 
 -- There are only five products categories as follows ;  
--- Toys, Arts & Crafts, Games, Electronics, Sports & Outdoors
+-- Toys, Arts & Crafts, Games, Electronics, Sports & Outdoors.
 ```
 3. Know the type of store location used by mexico toys company
-The following query will help to identify type of store location from stores table
+The following query will help to identify type of store location from stores table.
 ```sql 
 SELECT 
      DISTINCT Store_Location
 FROM stores
 
 -- There are four type stores location AS follows : 
--- Residential, Commercial, Downtown, Airtport
+-- Residential, Commercial, Downtown and Airtport.
 ```
 
 # Step 4:  Analysis
-1. Find how many sale transactions are made by mexico toys during the period
+1. Find how many sale transactions are made by mexico toys during the period.
 ```sql
 SELECT 
      COUNT(Sale_ID) AS total_sales_transactions
