@@ -106,7 +106,7 @@ HAVING ID_appearance > 1
 ```sql
 SELECT  * 
 FROM sales
-WHERE (Sale_ID || Date || Store_ID || Product_ID || Units ) IS NULL
+WHERE (Sale_ID || Date || Store_ID || Product_ID || Units) IS NULL
  ```
 # Step 3:  Data exploration
 1. Find the MINIMUM, MAXIMUM, Average of product price, product cost, units in stock.
