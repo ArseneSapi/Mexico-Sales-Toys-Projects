@@ -137,6 +137,7 @@ FROM products
 ```
 2. Know the product category of toys sold 
 -  The following query will help to identify product category from products table.
+
 ```sql
 SELECT DISTINCT Product_Category AS category
 FROM products
