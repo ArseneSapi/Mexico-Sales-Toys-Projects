@@ -373,7 +373,7 @@ GROUP BY year
 
 10. Determine Total cost, total revenue, total profit and profit percentage per year and month
 - Use subquery as follows
-```sql
+`` sql
 SELECT
      year,
      month,
@@ -382,7 +382,7 @@ SELECT
      SUM(revenue_per_product) - SUM(cost_per_product) AS profit,
      (SUM(revenue_per_product) - SUM(cost_per_product)) / SUM(revenue_per_product) AS profit_percentage
 FROM
-    (SELECT
+     (SELECT
          YEAR(s.Date) AS year,
          MONTH(s.date) AS month,
          s.Product_ID AS product_ID,
@@ -392,15 +392,14 @@ FROM
          SUM(s.units) AS Units_sold,
          d.Product_Price * SUM(s.units) AS revenue_per_product,
          SUM(s.units) * d.Product_Cost  AS cost_per_product
-     FROM sales s
-          INNER JOIN products d
-          ON s.product_ID = d.product_ID
-     GROUP BY YEAR(s.Date), MONTH(s.date), s.Product_ID, d.Product_Name, d.Product_Price, d.Product_Cost
-     ) AS revenue_and_costs
+      FROM sales s
+           INNER JOIN products d
+           ON s.product_ID = d.product_ID
+           GROUP BY YEAR(s.Date), MONTH(s.date), s.Product_ID, d.Product_Name, d.Product_Price, d.Product_Cost
+           ) AS revenue_and_costs
 GROUP BY year, month
-
 -- This is the precedent analysis broke down by month to see how Mexico toys perfomed month by month. Company revenue increased mont by month during 2017 with a little drop down during July and August. In 2018, revenue is constant with slightly increase, but ther is a drop down in August and september.
--- Drop down periods should be analyzed to understand what happen during those periods that can explain the situation and find solution to improve next year. 
+-- Drop down periods should be analyzed to understand what happen during those periods that can explain the situation and find solution to improve next year.
 ```
 
 11. It is also important to know the volume and value of our inventory 
