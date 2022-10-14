@@ -351,7 +351,7 @@ FROM
      GROUP BY Year(s.Date), d.Product_Category, s.Product_ID, d.Product_Name, d.Product_Price, d.Product_Cost
      ) AS revenue_and_costs
 GROUP BY year
--- This analysis help us to see how revenue per category is changing year by year. Only Arts & crafts goes up between 2017 and 2018 while other goes down. Deep analysis is necessary to understand why sales of those categories dropped down. Are there any products within those categories that are responsible for this situation?
+-- This analysis help us to see how revenue per category is changing year by year. Only Arts & crafts goes up between 2017 and 2018 while other goes down. Deep analysis is necessary to understand why sales of those categories dropped down. Are there any product within those categories that are responsible for this situation?
 ```
 
 9.Determine Total cost, total revenue, total profit and profit percentage per year 
